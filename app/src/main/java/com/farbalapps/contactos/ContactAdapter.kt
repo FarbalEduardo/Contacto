@@ -32,10 +32,6 @@ class ContactAdapter(private var contacts: List<ContactEntity>, private val list
 
             binding.tvnameContact.text = contact.name
             binding.itemContactos
-
-
-
-
             contact.photo?.let { photoId ->
                 Glide.with(binding.root.context)
                     .load(photoId) // Carga la imagen del ID de recurso
@@ -48,10 +44,6 @@ class ContactAdapter(private var contacts: List<ContactEntity>, private val list
                     .load(R.drawable.ic_call) // Utiliza una imagen por defecto
                     .into(binding.shimageContact) // Asigna la imagen al ShapeableImageView
             }
-
-
-
-
         }
 
     }
@@ -62,7 +54,9 @@ class ContactAdapter(private var contacts: List<ContactEntity>, private val list
         val binding= ItemContactBinding.bind(itemView)
 
         fun setListener(contactEntity: ContactEntity){
-
+            binding.root.setOnClickListener {
+               // listener.onClick(contactEntity)
+            }
 
         }
     }
