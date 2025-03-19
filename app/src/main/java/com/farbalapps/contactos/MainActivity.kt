@@ -1,6 +1,7 @@
 package com.farbalapps.contactos
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.farbalapps.contactos.databinding.ActivityMainBinding
@@ -19,7 +20,6 @@ class MainActivity : AppCompatActivity(), OnclickListener, MainAux {
         setContentView(mBinding.root)
 
 
-        //mBinding!!.searchView.isIconified = false
         setUpRecyclerView()
 
 
@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity(), OnclickListener, MainAux {
         val fragment = CreateContact()
 
         if (arg != null) fragment.arguments = arg
+        mBinding.searchBar.visibility = View.GONE
         supportFragmentManager.beginTransaction()
             .replace(R.id.containerMain, fragment)
             .addToBackStack(null)
@@ -61,11 +62,11 @@ class MainActivity : AppCompatActivity(), OnclickListener, MainAux {
     }
 
     override fun onCallClick(contactID: Long) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onMessageClick(contactID: Long) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onDestroy() {
@@ -73,6 +74,10 @@ class MainActivity : AppCompatActivity(), OnclickListener, MainAux {
 
     }
 
+    override fun hideSearchBar(isVisible: Boolean) {
+        mBinding.searchBar.visibility = if (isVisible) View.VISIBLE else View.GONE
+
+    }
 
 
 }
