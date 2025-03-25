@@ -2,4 +2,14 @@
     <string name="app_name">Contactos</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hint_name_contact">name</string>
+    <string name="helper_required">Introduce nombre\n</string>
+    <string name="hint_phonenumber">Phone\n</string>
+    <string name="hint_email">Email\n</string>
+    <string name="hint_contact_group">Group\n</string>
+    <string name="hint_workinfo">Work info\n</string>
+    <string name="hint_work_phone">Work phone\n</string>
+    <string name="label_show_more">\"Show more\"\n</string>
+    <string name="label_hide">\"Label hide\"\n</string>
+    <string name="hint_nick_name">nick name</string>
 </resources>

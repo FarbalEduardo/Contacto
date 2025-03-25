@@ -4,5 +4,6 @@
     <dimen name="common_padding_min">8dp</dimen>
     <dimen name="common_padding_default">16dp</dimen>
     <dimen name="item_card_middle">24dp</dimen>
+    <dimen name="text_size_default">16sp</dimen>
 
 </resources>
