@@ -19,48 +19,48 @@ class MainActivity : AppCompatActivity(), OnclickListener, MainAux {
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-        //Este Listener se agregara solo en la creacion de la activity.
-        supportFragmentManager.addOnBackStackChangedListener {
-            // Si el back stack está vacío, significa que estamos en la pantalla principal
-            hideSearchBar(supportFragmentManager.backStackEntryCount == 0)
-        }
+//        //Este Listener se agregara solo en la creacion de la activity.
+//        supportFragmentManager.addOnBackStackChangedListener {
+//            // Si el back stack está vacío, significa que estamos en la pantalla principal
+//            hideSearchBar(supportFragmentManager.backStackEntryCount == 0)
+//        }
+//
+//        setUpRecyclerView()
 
-        setUpRecyclerView()
-
-        mBinding.tvAddcontact.setOnClickListener {
-            launchCreateContactFragment()
-        }
+//        mBinding.tvAddcontact.setOnClickListener {
+//            launchCreateContactFragment()
+//        }
 
         //Se asegura que la SearchBar se muestre al iniciar la activity
-        hideSearchBar(true)
+//        hideSearchBar(true)
     }
+//
+//    private fun launchCreateContactFragment(arg: Bundle? = null) {
+//        val fragment = CreateContact()
+//        //Se le pasa el Bundle si es que lo contiene.
+//        if (arg != null) fragment.arguments = arg
+//        //Ocultar el SearchBar
+//        hideSearchBar(false)
+//        supportFragmentManager.beginTransaction()
+//            .replace(R.id.containerMain, fragment)
+//            .addToBackStack(null)
+//            .commit()
+//    }
 
-    private fun launchCreateContactFragment(arg: Bundle? = null) {
-        val fragment = CreateContact()
-        //Se le pasa el Bundle si es que lo contiene.
-        if (arg != null) fragment.arguments = arg
-        //Ocultar el SearchBar
-        hideSearchBar(false)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.containerMain, fragment)
-            .addToBackStack(null)
-            .commit()
-    }
+//    private fun setUpRecyclerView() {
+//        mAdapter = ContactAdapter(mutableListOf(), this)
+//        mLinearLayout = LinearLayoutManager(this)
+//        mBinding.rvcontact.apply {
+//            setHasFixedSize(true)
+//            layoutManager = mLinearLayout
+//            adapter = mAdapter
+//        }
+//    }
 
-    private fun setUpRecyclerView() {
-        mAdapter = ContactAdapter(mutableListOf(), this)
-        mLinearLayout = LinearLayoutManager(this)
-        mBinding.rvcontact.apply {
-            setHasFixedSize(true)
-            layoutManager = mLinearLayout
-            adapter = mAdapter
-        }
-    }
-
-    //Metodo modificado
-    fun hideSearchBar(isVisible: Boolean) {
-        mBinding.searchBar.visibility = if (isVisible) View.VISIBLE else View.GONE
-    }
+//    //Metodo modificado
+//    fun hideSearchBar(isVisible: Boolean) {
+//        mBinding.searchBar.visibility = if (isVisible) View.VISIBLE else View.GONE
+//    }
 
     override fun onClick(contactID: Long) {
         Snackbar.make(
@@ -79,6 +79,6 @@ class MainActivity : AppCompatActivity(), OnclickListener, MainAux {
     override fun onResume() {
         super.onResume()
         //Se asegura que la SearchBar se muestre al regresar a la activity
-        hideSearchBar(supportFragmentManager.backStackEntryCount == 0)
+    //    hideSearchBar(supportFragmentManager.backStackEntryCount == 0)
     }
 }

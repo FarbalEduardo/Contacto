@@ -30,20 +30,20 @@ class ContactAdapter(private var contacts: List<ContactEntity>, private val list
         with ( holder){
             setListener(contact)
 
-            binding.tvnameContact.text = contact.name
-            binding.itemContactos
-            contact.photo?.let { photoId ->
-                Glide.with(binding.root.context)
-                    .load(photoId) // Carga la imagen del ID de recurso
-                    .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
-                    .centerCrop() // ajusta la imagen al centro
-                    .into(binding.shimageContact) // Asigna la imagen al ShapeableImageView
-            } ?: run {
-                // Si no hay foto, asigna una por defecto.
-                Glide.with(binding.root.context)
-                    .load(R.drawable.ic_call) // Utiliza una imagen por defecto
-                    .into(binding.shimageContact) // Asigna la imagen al ShapeableImageView
-            }
+//            binding.tvnameContact.text = contact.name
+//            binding.itemContactos
+//            contact.photo?.let { photoId ->
+//                Glide.with(binding.root.context)
+//                    .load(photoId) // Carga la imagen del ID de recurso
+//                    .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
+//                    .centerCrop() // ajusta la imagen al centro
+//                    .into(binding.shimageContact) // Asigna la imagen al ShapeableImageView
+//            } ?: run {
+//                // Si no hay foto, asigna una por defecto.
+//                Glide.with(binding.root.context)
+//                    .load(R.drawable.ic_call) // Utiliza una imagen por defecto
+//                    .into(binding.shimageContact) // Asigna la imagen al ShapeableImageView
+//            }
         }
 
     }

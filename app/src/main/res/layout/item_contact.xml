@@ -1,65 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/item_contactos"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="4dp">
+    android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/common_padding_min">
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/shimage_contact"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:id="@+id/contact_avatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
             android:scaleType="centerCrop"
-            android:src="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearance="@style/circleImageView"
-            tools:src="@tools:sample/avatars" />
+            android:background="@color/search_background"
+            app:shapeAppearanceOverlay="@style/CircularImageView" />
 
-        <TextView
-            android:id="@+id/tvname_contact"
-            android:layout_width="200dp"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:maxLines="2"
-            tools:text="Jose Eduardo Farias Balderas"
-            android:textAppearance="?attr/textAppearanceBody2"
-            app:layout_constraintBottom_toBottomOf="@id/shimage_contact"
-            app:layout_constraintStart_toEndOf="@+id/shimage_contact"
-            app:layout_constraintTop_toTopOf="@id/shimage_contact" />
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/ibcall"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="20dp"
-            android:src="@drawable/ic_call"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tvname_contact"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/contact_name"
+                style="@style/ContactName"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="normal"
+                />
 
-        <ImageView
-            android:id="@+id/ibmessage"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:src="@drawable/ic_message"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.789"
-            app:layout_constraintStart_toEndOf="@+id/ibcall"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/contact_phone"
+                style="@style/ContactPhone2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+    </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</com.google.android.material.card.MaterialCardView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="72dp"
+        android:background="@color/divider" />
+</LinearLayout>

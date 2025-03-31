@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.room.runtime)
     implementation(libs.glide.core)
+    implementation(libs.circleimageview)
     kapt(libs.glide.compiler)
     kapt(libs.room.compiler)
     implementation(libs.room.ktx)

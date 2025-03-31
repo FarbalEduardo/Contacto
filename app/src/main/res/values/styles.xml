@@ -1,7 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="circleImageView" parent="">
+    <!-- Estilo para imágenes circulares -->
+    <style name="CircularImageView">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
+    </style>
+
+    <!-- Estilo para la barra de búsqueda -->
+    <style name="SearchBarStyle">
+        <item name="android:background">@color/search_background</item>
+        <item name="android:padding">12dp</item>
+        <item name="cornerRadius">8dp</item>
+    </style>
+
+    <!-- Estilo para el botón de añadir contacto -->
+    <style name="AddContactButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/secondary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <!-- Estilo para el título de la sección -->
+    <style name="SectionTitle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+
+    <!-- Estilo para el nombre del contacto -->
+    <style name="ContactName">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <!-- Estilo para el número de teléfono -->
+    <style name="ContactPhone">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="ContactPhone2">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+    <!-- Estilo para el tema de la aplicación -->
+    <style name="Theme.ContactList" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryVariant">@color/secondary_dark</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:divider">@color/divider</item>
+        <item name="android:dividerHeight">1dp</item>
     </style>
 </resources>
