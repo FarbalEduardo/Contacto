@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:id="@+id/containerMain">
 
    <LinearLayout
        android:layout_width="match_parent"
@@ -23,7 +24,7 @@
           android:textStyle="bold" />
 
       <Button
-          android:id="@+id/add_contact_button"
+          android:id="@+id/tv_add_contact_button"
           style="@style/AddContactButton"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -54,7 +55,7 @@
    </com.google.android.material.card.MaterialCardView>
 
    <androidx.recyclerview.widget.RecyclerView
-       android:id="@+id/contacts_recycler_view"
+       android:id="@+id/rv_contacts"
        android:layout_width="match_parent"
        android:layout_height="0dp"
        android:layout_marginTop="16dp"
