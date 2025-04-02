@@ -25,49 +25,37 @@ class MainActivity : AppCompatActivity(), OnclickListener, MainAux {
 //            hideSearchBar(supportFragmentManager.backStackEntryCount == 0)
 //        }
 //
-        setUpRecyclerView()
+       // setUpRecyclerView()
 
-        mBinding.tvAddContactButton.setOnClickListener {
-            launchCreateContactFragment()
-        }
 
-      //  Se asegura que la SearchBar se muestre al iniciar la activity
-        hideSearchBar(true)
     }
 
-    private fun launchCreateContactFragment(arg: Bundle? = null) {
-        val fragment = CreateContact()
-        //Se le pasa el Bundle si es que lo contiene.
-        if (arg != null) fragment.arguments = arg
-        //Ocultar el SearchBar
-        hideSearchBar(false)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.containerMain, fragment)
-            .addToBackStack(null)
-            .commit()
-    }
+//    private fun launchCreateContactFragment(arg: Bundle? = null) {
+//        val fragment = CreateContact()
+//        //Se le pasa el Bundle si es que lo contiene.
+//        if (arg != null) fragment.arguments = arg
+//        //Ocultar el SearchBar
+//        hideSearchBar(false)
+//        supportFragmentManager.beginTransaction()
+//            .replace(R.id.containerMain, fragment)
+//            .addToBackStack(null)
+//            .commit()
+//    }
 
-    private fun setUpRecyclerView() {
-        mAdapter = ContactAdapter(mutableListOf(), this)
-        mLinearLayout = LinearLayoutManager(this)
-        mBinding.rvContacts.apply {
-            setHasFixedSize(true)
-            layoutManager = mLinearLayout
-            adapter = mAdapter
-        }
-    }
+//    private fun setUpRecyclerView() {
+//        mAdapter = ContactAdapter(mutableListOf(), this)
+//        mLinearLayout = LinearLayoutManager(this)
+//        mBinding.rvContacts.apply {
+//            setHasFixedSize(true)
+//            layoutManager = mLinearLayout
+//            adapter = mAdapter
+//        }
+//    }
 
-    //Metodo modificado
-    fun hideSearchBar(isVisible: Boolean) {
-        mBinding.searchView.visibility = if (isVisible) View.VISIBLE else View.GONE
-    }
+
 
     override fun onClick(contactID: Long) {
-        Snackbar.make(
-            mBinding.root,
-            "Click en el contacto $contactID",
-            Snackbar.LENGTH_SHORT
-        ).show()
+
     }
 
     override fun onCallClick(contactID: Long) {

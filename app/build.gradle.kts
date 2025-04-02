@@ -51,8 +51,12 @@ dependencies {
     implementation(libs.room.runtime)
     implementation(libs.glide.core)
     implementation(libs.circleimageview)
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
+
     kapt(libs.glide.compiler)
     kapt(libs.room.compiler)
+
     implementation(libs.room.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

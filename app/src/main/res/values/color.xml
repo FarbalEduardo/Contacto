@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <color name="primary">#E53935</color>
     <color name="primary_dark">#C62828</color>
@@ -14,5 +14,6 @@
     <color name="text_secondary">#5F6368</color>
     <color name="divider">#DADCE0</color>
     <color name="search_background">#F1F3F4</color>
+
 
 </resources>
