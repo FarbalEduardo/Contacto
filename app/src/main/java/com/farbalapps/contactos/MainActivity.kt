@@ -3,6 +3,7 @@ package com.farbalapps.contactos
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,7 +30,17 @@ class MainActivity : AppCompatActivity(), OnclickListener, MainAux {
 //
         setSupportActionBar(findViewById(R.id.my_toolbar))
         setupNavigationController()
-       // setUpRecyclerView()
+
+        mBinding.myToolbar.setOnMenuItemClickListener{ menuItem ->
+            when (menuItem.itemId){
+                R.id.action_add_contact -> {
+                    findNavController(R.id.nav_host_fragment_activity_main)
+                        .navigate(R.id.nav_calls)
+                    true
+                }
+                else -> false
+            }
+        }
 
 
     }
