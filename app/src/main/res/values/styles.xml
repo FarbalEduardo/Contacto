@@ -48,7 +48,7 @@
     <!-- Estilo para el tema de la aplicación -->
 
 
-    <style name="Theme.ContactList" parent="Theme.Material3.DayNight">
+    <style name="Theme.ContactList" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Código existente -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryVariant">@color/primary_dark</item>

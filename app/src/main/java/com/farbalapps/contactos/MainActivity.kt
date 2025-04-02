@@ -3,6 +3,8 @@ package com.farbalapps.contactos
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.farbalapps.contactos.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
@@ -25,8 +27,18 @@ class MainActivity : AppCompatActivity(), OnclickListener, MainAux {
 //            hideSearchBar(supportFragmentManager.backStackEntryCount == 0)
 //        }
 //
+        setSupportActionBar(findViewById(R.id.my_toolbar))
+        setupNavigationController()
        // setUpRecyclerView()
 
+
+    }
+    private fun setupNavigationController(){
+        // Setup Navigation Controller
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
+        val navController = navHostFragment.navController
+        // Connect BottomNavigationView with NavController
+        mBinding.bottomNavigation.setupWithNavController(navController)
 
     }
 
@@ -35,7 +47,6 @@ class MainActivity : AppCompatActivity(), OnclickListener, MainAux {
 //        //Se le pasa el Bundle si es que lo contiene.
 //        if (arg != null) fragment.arguments = arg
 //        //Ocultar el SearchBar
-//        hideSearchBar(false)
 //        supportFragmentManager.beginTransaction()
 //            .replace(R.id.containerMain, fragment)
 //            .addToBackStack(null)
