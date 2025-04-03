@@ -2,19 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/nav_contacts_home"
-        android:icon="@android:drawable/ic_menu_myplaces"
-        android:title="Contact" />
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_contact"
+        android:title="@string/contacts" />
 
     <item
         android:id="@+id/nav_favorites"
-        android:icon="@android:drawable/btn_star"
-        android:title="Favorites" />
+        android:icon="@drawable/ic_star"
+        android:title="@string/favorites" />
 
 
 
     <item
-        android:id="@+id/nav_calls"
-        android:icon="@android:drawable/ic_menu_call"
-        android:title="Call" />
+        android:id="@+id/nav_group"
+        android:icon="@drawable/ic_group"
+        android:title="@string/Groups" />
 </menu>

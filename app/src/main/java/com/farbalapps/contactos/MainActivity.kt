@@ -1,5 +1,6 @@
 package com.farbalapps.contactos
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -10,103 +11,51 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.farbalapps.contactos.databinding.ActivityMainBinding
-import com.google.android.material.snackbar.Snackbar
 
-class MainActivity : AppCompatActivity(), OnclickListener, MainAux {
-
-    private lateinit var mAdapter: ContactAdapter
-    private lateinit var mLinearLayout: LinearLayoutManager
+class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-//        //Este Listener se agregara solo en la creacion de la activity.
-//        supportFragmentManager.addOnBackStackChangedListener {
-//            // Si el back stack está vacío, significa que estamos en la pantalla principal
-//            hideSearchBar(supportFragmentManager.backStackEntryCount == 0)
-//        }
-//
         setSupportActionBar(findViewById(R.id.my_toolbar))
         setupNavigationController()
 
-        mBinding.myToolbar.setOnMenuItemClickListener{ menuItem ->
-            when (menuItem.itemId){
+        // Modificar este listener para usar las acciones definidas en nav_graph
+        mBinding.myToolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
                 R.id.action_add_contact -> {
-                    findNavController(R.id.nav_host_fragment_activity_main)
-                        .navigate(R.id.nav_calls)
+                    val intent = Intent(this, CreateContacts::class.java)
+                    startActivity(intent)
                     true
                 }
                 else -> false
             }
         }
-
-
     }
 
-    private fun setupNavigationController(){
-        // Setup Navigation Controller
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
+    private fun setupNavigationController() {
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
         val navController = navHostFragment.navController
-        // Connect BottomNavigationView with NavController
+
+        // Configurar la navegación del BottomNavigationView
         mBinding.bottomNavigation.setupWithNavController(navController)
 
+
+
     }
 
-//    private fun launchCreateContactFragment(arg: Bundle? = null) {
-//        val fragment = CreateContact()
-//        //Se le pasa el Bundle si es que lo contiene.
-//        if (arg != null) fragment.arguments = arg
-//        //Ocultar el SearchBar
-//        supportFragmentManager.beginTransaction()
-//            .replace(R.id.containerMain, fragment)
-//            .addToBackStack(null)
-//            .commit()
-//    }
-
-//    private fun setUpRecyclerView() {
-//        mAdapter = ContactAdapter(mutableListOf(), this)
-//        mLinearLayout = LinearLayoutManager(this)
-//        mBinding.rvContacts.apply {
-//            setHasFixedSize(true)
-//            layoutManager = mLinearLayout
-//            adapter = mAdapter
-//        }
-//    }
+    // Eliminar o modificar onOptionsItemSelected ya que está duplicando la funcionalidad
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return super.onOptionsItemSelected(item)
+    }
 
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.top_app_bar, menu)
         return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_add_contact -> {
-                findNavController(R.id.nav_host_fragment_activity_main)
-                    .navigate(R.id.nav_calls)
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-
-        }
-    }
-    override fun onClick(contactID: Long) {
-
-    }
-
-    override fun onCallClick(contactID: Long) {
-    }
-
-    override fun onMessageClick(contactID: Long) {
-    }
-
-    override fun onResume() {
-        super.onResume()
-        //Se asegura que la SearchBar se muestre al regresar a la activity
-    //    hideSearchBar(supportFragmentManager.backStackEntryCount == 0)
     }
 }

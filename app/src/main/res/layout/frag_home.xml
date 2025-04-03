@@ -31,7 +31,7 @@
             app:queryBackground="@null"
             app:queryHint="Search name, number, etc"
             app:searchHintIcon="@null"
-            app:searchIcon="@android:drawable/ic_menu_search" />
+            app:searchIcon="@drawable/ic_search" />
     </com.google.android.material.card.MaterialCardView>
 
         <androidx.recyclerview.widget.RecyclerView

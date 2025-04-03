@@ -3,6 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_add_contact"
-        android:title="Add Contact"
-        app:showAsAction="always"/>
+        android:title="Add contact"
+        app:showAsAction="always|withText"
+        android:textAllCaps="false"
+        app:itemIconTint="@color/white"
+        android:icon="@drawable/ic_add"/>
 </menu>
