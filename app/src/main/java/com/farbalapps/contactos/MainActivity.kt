@@ -1,6 +1,8 @@
 package com.farbalapps.contactos
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -44,6 +46,7 @@ class MainActivity : AppCompatActivity(), OnclickListener, MainAux {
 
 
     }
+
     private fun setupNavigationController(){
         // Setup Navigation Controller
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
@@ -75,7 +78,22 @@ class MainActivity : AppCompatActivity(), OnclickListener, MainAux {
 //    }
 
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.top_app_bar, menu)
+        return true
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_add_contact -> {
+                findNavController(R.id.nav_host_fragment_activity_main)
+                    .navigate(R.id.nav_calls)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+
+        }
+    }
     override fun onClick(contactID: Long) {
 
     }
