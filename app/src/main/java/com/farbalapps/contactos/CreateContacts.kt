@@ -8,9 +8,13 @@ class CreateContacts : AppCompatActivity() {
     private lateinit var mBinding: ActCreateContactsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         mBinding = ActCreateContactsBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
+
+        mBinding.btnCancel.setOnClickListener {
+            finish()
+
+        }
 
     }
 
