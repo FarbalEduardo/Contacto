@@ -1,28 +1,28 @@
 package com.farbalapps.contactos.intarfaces
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.farbalapps.contactos.ContactEntity
 
 @Dao
 interface ContactDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertContact(contact: ContactEntity)
 
-        @Insert
-        fun insertContact(contact: ContactEntity)
+    @Update
+    suspend fun updateContact(contact: ContactEntity)
 
-        @Update
-        fun updateContact(contact: ContactEntity)
+    @Delete
+    suspend fun deleteContact(contact: ContactEntity)
 
-        @Delete
-        fun deleteContact(contact: ContactEntity)
+    @Query("SELECT * FROM contacts ORDER BY name ASC")
+    suspend fun getAllContacts(): List<ContactEntity>
 
-        @Query("SELECT * FROM contacts")
-        fun getAllContacts(): List<ContactEntity>
+    @Query("SELECT * FROM contacts WHERE id = :id")
+    suspend fun getContactById(id: Int): ContactEntity
 
-        @Query("SELECT * FROM contacts WHERE id = :id")
-        fun getContactById(id: Int): ContactEntity
+    @Query("SELECT * FROM contacts WHERE name LIKE '%' || :searchQuery || '%' OR phone LIKE '%' || :searchQuery || '%'")
+    suspend fun searchContacts(searchQuery: String): List<ContactEntity>
 
+    @Query("DELETE FROM contacts")
+    suspend fun deleteAllContacts()
 }
