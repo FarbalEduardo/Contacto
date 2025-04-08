@@ -1,10 +1,11 @@
-package com.farbalapps.contactos
+package com.farbalapps.contactos.intarfaces
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import com.farbalapps.contactos.ContactEntity
 
 @Dao
 interface ContactDao {

@@ -4,16 +4,14 @@ import android.app.Application
 import androidx.room.Room
 
 class ContactApplication : Application() {
-
     companion object {
-
         lateinit var database: ContactDatabase
     }
 
     override fun onCreate() {
         super.onCreate()
         database = Room.databaseBuilder(
-            applicationContext,
+            this,
             ContactDatabase::class.java,
             "contact_database"
         ).build()

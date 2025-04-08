@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".frag_home"
+    tools:context=".ui.Frag_home"
     android:padding="@dimen/common_padding_min">
 
 

@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.farbalapps.contactos.frag_home"
+        android:name="com.farbalapps.contactos.ui.Frag_home"
         android:label="@string/app_name">
         <action
             android:id="@+id/action_home_to_favorites"
@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/nav_favorites"
-        android:name="com.farbalapps.contactos.FragFavorite"
+        android:name="com.farbalapps.contactos.ui.FragFavorite"
         android:label="@string/favorites">
         <action
             android:id="@+id/action_favorites_to_home"
@@ -44,7 +44,7 @@
 
     <fragment
         android:id="@+id/nav_group"
-        android:name="com.farbalapps.contactos.FragGroup"
+        android:name="com.farbalapps.contactos.ui.FragGroup"
         android:label="@string/Groups">
         <action
             android:id="@+id/action_calls_to_home"
