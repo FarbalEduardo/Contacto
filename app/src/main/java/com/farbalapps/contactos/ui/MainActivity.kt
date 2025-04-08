@@ -1,5 +1,6 @@
 package com.farbalapps.contactos.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -7,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.farbalapps.contactos.CreateContacts
 import com.farbalapps.contactos.R
 import com.farbalapps.contactos.databinding.ActivityMainBinding
 
@@ -19,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
+        setSupportActionBar(mBinding.myToolbar)
         setupNavigationController()
     }
 
@@ -32,6 +35,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_add_contact -> {
+                val intent = Intent(this, CreateContacts::class.java)
+                startActivity(intent)
+                return true
+            }
+        }
         return super.onOptionsItemSelected(item)
     }
 
