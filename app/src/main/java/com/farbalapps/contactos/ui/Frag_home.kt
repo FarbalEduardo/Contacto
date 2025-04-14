@@ -16,9 +16,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import android.app.Dialog
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.Matrix
 import android.graphics.drawable.ColorDrawable
+import android.media.ExifInterface
 import android.net.Uri
 import com.farbalapps.contactos.ContactEntity
 import com.farbalapps.contactos.databinding.DialogContactDetailBinding
@@ -26,6 +29,7 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.net.toUri
 import com.farbalapps.contactos.R
+import java.io.ByteArrayInputStream
 
 class Frag_home : Fragment() {
     private lateinit var mBinding: FragHomeBinding
@@ -63,11 +67,39 @@ class Frag_home : Fragment() {
             tvName.text = contact.name
             tvPhone.text = contact.phone
     
-            // Mostrar la imagen del contacto
             contact.photo?.let { photoBytes ->
-                val bitmap = BitmapFactory.decodeByteArray(photoBytes, 0, photoBytes.size)
-                backgroundImage.setImageBitmap(bitmap)
-            } ?: ciProfileImage.setImageResource(R.drawable.ic_person) // imagen por defecto
+                try {
+                    val bitmap = BitmapFactory.decodeByteArray(photoBytes, 0, photoBytes.size)
+                    val exif = ExifInterface(ByteArrayInputStream(photoBytes))
+                    
+                    val orientation = exif.getAttributeInt(
+                        ExifInterface.TAG_ORIENTATION,
+                        ExifInterface.ORIENTATION_NORMAL
+                    )
+                    
+                    val matrix = Matrix()
+                    when (orientation) {
+                        ExifInterface.ORIENTATION_ROTATE_90 -> matrix.postRotate(90f)
+                        ExifInterface.ORIENTATION_ROTATE_180 -> matrix.postRotate(180f)
+                        ExifInterface.ORIENTATION_ROTATE_270 -> matrix.postRotate(270f)
+                    }
+                    
+                    val rotatedBitmap = if (matrix.isIdentity) {
+                        bitmap
+                    } else {
+                        Bitmap.createBitmap(
+                            bitmap, 0, 0,
+                            bitmap.width, bitmap.height,
+                            matrix, true
+                        )
+                    }
+                    backgroundImage.setImageBitmap(rotatedBitmap)
+                    ciProfileImage.setImageBitmap(rotatedBitmap)
+                } catch (e: Exception) {
+                    ciProfileImage.setImageResource(R.drawable.ic_person)
+                    backgroundImage.setImageResource(R.drawable.ic_person)
+                }
+            } ?: ciProfileImage.setImageResource(R.drawable.ic_person)
     
             btnCall.setOnClickListener {
                 val intent = Intent(Intent.ACTION_DIAL).apply {

@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/contact_detail_background">
 
     <ImageView
         android:id="@+id/background_image"
@@ -33,7 +34,11 @@
         android:layout_marginTop="16dp"
         android:textSize="28sp"
         android:textStyle="bold"
-        android:textColor="#000000"
+        android:textColor="@color/white"
+        android:shadowColor="#000000"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ci_profile_image" />
@@ -43,8 +48,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:textSize="16sp"
-        android:textColor="#757575"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:shadowColor="#000000"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_name" />
@@ -67,9 +76,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:contentDescription="@string/call"
-            android:src="@android:drawable/ic_menu_call"
+            android:src="@drawable/ic_call"
             app:fabSize="normal"
-            app:tint="#FFFFFF" />
+            app:tint="@color/primary_dark"
+            app:backgroundTint="@color/white"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_message"
@@ -77,9 +87,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:contentDescription="@string/message"
-            android:src="@android:drawable/ic_dialog_email"
+            android:src="@drawable/ic_email"
             app:fabSize="normal"
-            app:tint="#FFFFFF" />
+            app:tint="@color/primary_dark"
+            app:backgroundTint="@color/white"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_delete"
@@ -87,9 +98,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:contentDescription="@string/delete"
-            android:src="@android:drawable/ic_menu_delete"
+            android:src="@drawable/ic_delete"
             app:fabSize="normal"
-            app:tint="#FFFFFF" />
+            app:tint="@color/primary_dark"
+            app:backgroundTint="@color/white"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
