@@ -46,7 +46,7 @@
                     android:layout_marginTop="16dp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/profile_image"
+                        android:id="@+id/ci_profile_image"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/ic_person" />
@@ -161,13 +161,13 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_update_profile"
+                    android:id="@+id/btn_save_contact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:layout_marginBottom="16dp"
                     android:backgroundTint="@color/primary"
-                    android:text="Update Profile"
+                    android:text="Save contact"
                     android:textColor="@color/white"
                     app:cornerRadius="8dp" />
 
