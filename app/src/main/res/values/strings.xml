@@ -18,5 +18,8 @@
     <string name="call">Call\n</string>
     <string name="message">message\n</string>
     <string name="delete">Delete\n</string>
+    <string name="settings">Settings\n</string>
+    <string name="calendar">Calendar</string>
+    <string name="events_of_the_day">Event of the day</string>
 
 </resources>

@@ -6,15 +6,20 @@
         android:icon="@drawable/ic_contact"
         android:title="@string/contacts" />
 
-    <item
-        android:id="@+id/nav_favorites"
-        android:icon="@drawable/ic_star"
-        android:title="@string/favorites" />
-
-
 
     <item
         android:id="@+id/nav_group"
         android:icon="@drawable/ic_group"
         android:title="@string/Groups" />
+
+    <item
+        android:id="@+id/nav_calendar"
+        android:icon="@drawable/ic_calendar"
+        android:title="Calendario" />
+
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/ic_star"
+        android:title="@string/settings" />
+
 </menu>

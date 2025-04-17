@@ -10,7 +10,7 @@
         android:label="@string/app_name">
         <action
             android:id="@+id/action_home_to_favorites"
-            app:destination="@id/nav_favorites"
+            app:destination="@id/nav_settings"
             app:popUpTo="@id/nav_home"
             app:popUpToInclusive="true"
             app:launchSingleTop="true"/>
@@ -24,8 +24,8 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_favorites"
-        android:name="com.farbalapps.contactos.ui.FragFavorite"
+        android:id="@+id/nav_settings"
+        android:name="com.farbalapps.contactos.ui.FragSettings"
         android:label="@string/favorites">
         <action
             android:id="@+id/action_favorites_to_home"
@@ -54,11 +54,40 @@
             app:launchSingleTop="true"/>
         <action
             android:id="@+id/action_calls_to_favorites"
-            app:destination="@id/nav_favorites"
+            app:destination="@id/nav_settings"
             app:popUpTo="@id/nav_home"
             app:popUpToInclusive="true"
             app:launchSingleTop="true"/>
+        <action
+            android:id="@+id/action_group_to_calendar"
+            app:destination="@id/nav_calendar"
+            app:popUpTo="@id/nav_home"
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true"/>
+    </fragment>
 
-</fragment>
+    <fragment
+        android:id="@+id/nav_calendar"
+        android:name="com.farbalapps.contactos.ui.FragCalendar"
+        android:label="Calendario">
+        <action
+            android:id="@+id/action_calendar_to_home"
+            app:destination="@id/nav_home"
+            app:popUpTo="@id/nav_home"
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true"/>
+        <action
+            android:id="@+id/action_calendar_to_group"
+            app:destination="@id/nav_group"
+            app:popUpTo="@id/nav_home"
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true"/>
+        <action
+            android:id="@+id/action_calendar_to_settings"
+            app:destination="@id/nav_settings"
+            app:popUpTo="@id/nav_home"
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true"/>
+    </fragment>
 
 </navigation>
