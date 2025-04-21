@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.farbalapps.contactos.CreateContacts
 import com.farbalapps.contactos.R
 import com.farbalapps.contactos.databinding.ActivityMainBinding
 

@@ -1,10 +1,12 @@
-package com.farbalapps.contactos
+package com.farbalapps.contactos.ui
 
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.farbalapps.contactos.ContactApplication
+import com.farbalapps.contactos.ContactEntity
 import com.farbalapps.contactos.databinding.ActCreateContactsBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
@@ -14,7 +16,7 @@ import kotlinx.coroutines.withContext
 class CreateContacts : AppCompatActivity() {
     private lateinit var mBinding: ActCreateContactsBinding
     private var selectedImageUri: Uri? = null
-    
+
     companion object {
         private const val PICK_IMAGE_REQUEST = 1
     }
@@ -73,8 +75,8 @@ class CreateContacts : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.IO) {
                 try {
                     val imageBytes = selectedImageUri?.let { uri ->
-                        contentResolver.openInputStream(uri)?.use { 
-                            it.readBytes() 
+                        contentResolver.openInputStream(uri)?.use {
+                            it.readBytes()
                         }
                     }
 
