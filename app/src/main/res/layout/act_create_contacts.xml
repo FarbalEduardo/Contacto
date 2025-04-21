@@ -72,7 +72,7 @@
                         android:id="@+id/edit_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableEnd="@android:drawable/ic_menu_myplaces"
+                        android:drawableEnd="@drawable/ic_badge"
                         android:hint="Full Name" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -86,7 +86,7 @@
                         android:id="@+id/edit_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableEnd="@android:drawable/ic_dialog_email"
+                        android:drawableEnd="@drawable/ic_email"
                         android:hint="Email Address"
                         android:inputType="textEmailAddress" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -101,7 +101,7 @@
                         android:id="@+id/edit_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableEnd="@android:drawable/ic_menu_call"
+                        android:drawableEnd="@drawable/ic_call"
                         android:hint="Phone Number"
                         android:inputType="phone" />
                 </com.google.android.material.textfield.TextInputLayout>

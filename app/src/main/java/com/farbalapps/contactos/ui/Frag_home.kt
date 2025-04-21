@@ -20,9 +20,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Matrix
-import android.graphics.drawable.ColorDrawable
 import android.media.ExifInterface
-import android.net.Uri
 import com.farbalapps.contactos.ContactEntity
 import com.farbalapps.contactos.databinding.DialogContactDetailBinding
 import com.google.android.material.snackbar.Snackbar
@@ -120,6 +118,21 @@ class Frag_home : Fragment() {
             btnDelete.setOnClickListener {
                 deleteContact(contact)
                 dialog.dismiss()
+            }
+
+            ivFavorite.apply {
+                setImageResource(if (contact.isFavorite) R.drawable.ic_favorite_filled else R.drawable.ic_favorite_border)
+                setOnClickListener {
+                    val newFavoriteStatus = !contact.isFavorite
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        ContactApplication.database.contactDao().updateFavoriteStatus(contact.id, newFavoriteStatus)
+                        contact.isFavorite = newFavoriteStatus
+                        withContext(Dispatchers.Main) {
+                            setImageResource(if (newFavoriteStatus) R.drawable.ic_favorite_filled else R.drawable.ic_favorite_border)
+                            loadContacts()
+                        }
+                    }
+                }
             }
         }
     
