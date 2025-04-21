@@ -3,10 +3,12 @@ package com.farbalapps.contactos.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.farbalapps.contactos.ContactApplication
 import com.farbalapps.contactos.ContactEntity
+import com.farbalapps.contactos.R
 import com.farbalapps.contactos.databinding.ActCreateContactsBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
@@ -60,13 +62,23 @@ class CreateContacts : AppCompatActivity() {
         mBinding.btnCancel.setOnClickListener {
             finish()
         }
+
+        mBinding.btnExpandWorkInfo.setOnClickListener {
+            val isExpanded = mBinding.containerWorkInfo.visibility == View.VISIBLE
+            mBinding.containerWorkInfo.visibility = if (isExpanded) View.GONE else View.VISIBLE
+            mBinding.btnExpandWorkInfo.setCompoundDrawablesWithIntrinsicBounds(
+                0, 0, 0, if (isExpanded) R.drawable.ic_arrow_down else R.drawable.ic_arrow_up
+            )
+            mBinding.btnExpandWorkInfo.text = if (isExpanded)
+                "View more" else "Hide"
+        }
     }
 
     private fun saveContact() {
         val name = mBinding.editName.text.toString()
         val phone = mBinding.editPhone.text.toString()
         val email = mBinding.editEmail.text.toString()
-        val nickname = mBinding.editNickname.text.toString()
+      //  val nickname = mBinding.editNickname.text.toString()
         val workInfo = mBinding.editWorkInfo.text.toString()
         val workPhone = mBinding.editWorkPhone.text.toString()
         val workEmail = mBinding.editWorkEmail.text.toString()
@@ -83,7 +95,7 @@ class CreateContacts : AppCompatActivity() {
                     val contact = ContactEntity(
                         id = 0L,  // Cambiado a 0L para Long
                         name = name,
-                        nickname = nickname,
+                      //  nickname = nickname,
                         phone = phone,
                         photo = imageBytes,  // ByteArray de la imagen
                         email = email,
@@ -106,6 +118,7 @@ class CreateContacts : AppCompatActivity() {
             }
         }
     }
+
 
     private fun validateFields(name: String, phone: String): Boolean {
         if (name.isEmpty()) {
