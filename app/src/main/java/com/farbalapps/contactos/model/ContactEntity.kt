@@ -1,15 +1,16 @@
-package com.farbalapps.contactos
+package com.farbalapps.contactos.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+
 @Entity(tableName = "contacts")
 data class ContactEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0L,
     @ColumnInfo(name = "name") var name: String,
     @ColumnInfo(name = "nickname", defaultValue = "N/A") var nickname: String = "",
     @ColumnInfo(index = true) var phone: String,
-    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+    @ColumnInfo(typeAffinity = ColumnInfo.Companion.BLOB)
     var photo: ByteArray?,
     @ColumnInfo(name = "email", index = true) var email: String = "",
     @ColumnInfo(name = "contact_group", defaultValue = "No group") var contact_group: String = "No group",

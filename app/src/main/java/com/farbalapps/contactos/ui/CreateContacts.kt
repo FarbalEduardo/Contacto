@@ -7,7 +7,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.farbalapps.contactos.ContactApplication
-import com.farbalapps.contactos.ContactEntity
+import com.farbalapps.contactos.model.ContactEntity
 import com.farbalapps.contactos.R
 import com.farbalapps.contactos.databinding.ActCreateContactsBinding
 import com.google.android.material.snackbar.Snackbar

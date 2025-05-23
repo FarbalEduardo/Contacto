@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.farbalapps.contactos.intarfaces.ContactDao
+import com.farbalapps.contactos.model.ContactEntity
 
 @Database(entities = [ContactEntity::class], version = 2)
 abstract class ContactDatabase : RoomDatabase() {

@@ -3,6 +3,7 @@ package com.farbalapps.contactos
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.farbalapps.contactos.model.ContactEntity
 
 @Entity(
     tableName = "calendar_events",

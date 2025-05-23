@@ -1,7 +1,7 @@
 package com.farbalapps.contactos.intarfaces
 
 import androidx.room.*
-import com.farbalapps.contactos.ContactEntity
+import com.farbalapps.contactos.model.ContactEntity
 
 @Dao
 interface ContactDao {

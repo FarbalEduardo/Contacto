@@ -21,7 +21,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Matrix
 import android.media.ExifInterface
-import com.farbalapps.contactos.ContactEntity
+import com.farbalapps.contactos.model.ContactEntity
 import com.farbalapps.contactos.databinding.DialogContactDetailBinding
 import com.google.android.material.snackbar.Snackbar
 import androidx.core.graphics.drawable.toDrawable
