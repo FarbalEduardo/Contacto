@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.SelectGroupActivity"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_back"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select group"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginStart="32dp"/>
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <RadioGroup
+        android:id="@+id/group_radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <RadioButton
+            android:id="@+id/radio_not_assigned"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Not assigned"
+            android:checked="true"
+            android:padding="16dp"/>
+
+        <RadioButton
+            android:id="@+id/radio_emergency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Emergency contacts"
+            android:padding="16dp"/>
+
+        <TextView
+            android:id="@+id/create_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Create group"
+            android:textColor="@color/primary"
+            android:drawableStart="@drawable/ic_add"
+            android:drawableTint="@color/primary"
+            android:padding="16dp"
+            android:layout_marginTop="8dp"/>
+    </RadioGroup>
+</LinearLayout>
+

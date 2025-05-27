@@ -33,18 +33,11 @@
                 tools:text="Nombre del Grupo" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_menu_close_clear_cancel"
-                app:tint="@color/primary"
-                android:paddingEnd="@dimen/common_padding_min"/>
-            <ImageView
                 android:id="@+id/expandIcon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_arrow_down"
                 android:contentDescription="Expandir grupo" />
-
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

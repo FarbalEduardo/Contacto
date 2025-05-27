@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Contactos">
         <activity
+            android:name=".ui.SelectGroupActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.CreateContacts"
             android:exported="false" />
         <activity

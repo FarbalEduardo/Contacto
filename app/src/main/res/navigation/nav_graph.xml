@@ -69,7 +69,7 @@
     <fragment
         android:id="@+id/nav_calendar"
         android:name="com.farbalapps.contactos.ui.FragCalendar"
-        android:label="Calendario">
+        android:label="Calendar">
         <action
             android:id="@+id/action_calendar_to_home"
             app:destination="@id/nav_home"

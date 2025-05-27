@@ -21,6 +21,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Matrix
 import android.media.ExifInterface
+import androidx.appcompat.app.AppCompatActivity
 import com.farbalapps.contactos.model.ContactEntity
 import com.farbalapps.contactos.databinding.DialogContactDetailBinding
 import com.google.android.material.snackbar.Snackbar
@@ -35,6 +36,7 @@ class Frag_home : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View {
+        (activity as? AppCompatActivity)?.supportActionBar?.title = "Contact"
         mBinding = FragHomeBinding.inflate(inflater, container, false)
         return mBinding.root
     }

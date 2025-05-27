@@ -21,6 +21,7 @@ class CreateContacts : AppCompatActivity() {
 
     companion object {
         private const val PICK_IMAGE_REQUEST = 1
+        private const val SELECT_GROUP_REQUEST = 2
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +31,10 @@ class CreateContacts : AppCompatActivity() {
 
         setupButtons()
         setupImagePicker()
+        mBinding.editSelectGroup.setOnClickListener {
+            val intent = Intent(this, SelectGroupActivity::class.java)
+            startActivityForResult(intent, SELECT_GROUP_REQUEST)
+        }
     }
 
     private fun setupImagePicker() {
@@ -48,9 +53,19 @@ class CreateContacts : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
-            selectedImageUri = data.data
-            mBinding.ciProfileImage.setImageURI(selectedImageUri)
+        when (requestCode) {
+            PICK_IMAGE_REQUEST -> {
+                if (resultCode == RESULT_OK && data != null) {
+                    selectedImageUri = data.data
+                    mBinding.ciProfileImage.setImageURI(selectedImageUri)
+                }
+            }
+            SELECT_GROUP_REQUEST -> {
+                if (resultCode == RESULT_OK && data != null) {
+                    val selectedGroup = data.getStringExtra("selected_group") ?: ""
+                    mBinding.editSelectGroup.setText(selectedGroup)
+                }
+            }
         }
     }
 
