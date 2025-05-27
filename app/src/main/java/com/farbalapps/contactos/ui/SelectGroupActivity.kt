@@ -26,19 +26,6 @@ class SelectGroupActivity : AppCompatActivity() {
     }
 
     private fun setupGroupList() {
-        // Crear RadioButtons dinámicamente para cada grupo
-        groups.forEach { group ->
-            val radioButton = RadioButton(this).apply {
-                text = group
-                layoutParams = RadioGroup.LayoutParams(
-                    RadioGroup.LayoutParams.MATCH_PARENT,
-                    RadioGroup.LayoutParams.WRAP_CONTENT
-                )
-                setPadding(32, 32, 32, 32)
-            }
-            binding.groupRadioGroup.addView(radioButton)
-        }
-
         binding.groupRadioGroup.setOnCheckedChangeListener { _, checkedId ->
             val radioButton = findViewById<RadioButton>(checkedId)
             val selectedGroup = radioButton.text.toString()
