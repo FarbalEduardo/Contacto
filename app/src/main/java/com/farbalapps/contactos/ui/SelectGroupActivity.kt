@@ -35,17 +35,21 @@ class SelectGroupActivity : AppCompatActivity() {
 
     private fun setupCreateGroup() {
         binding.createGroup.setOnClickListener {
-            MaterialAlertDialogBuilder(this)
+            val dialog = MaterialAlertDialogBuilder(this)
                 .setTitle("Create new group")
                 .setView(R.layout.dialog_create_group)
-                .setPositiveButton("Create") { dialog, _ ->
-                    val editText = (dialog as AlertDialog)
-                        .findViewById<EditText>(R.id.edit_group_name)
+                .setPositiveButton("Create", null)
+                .setNegativeButton("Cancel", null)
+                .show()
+
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).apply {
+                setTextColor(resources.getColor(R.color.primary, theme))
+                setOnClickListener {
+                    val editText = dialog.findViewById<EditText>(R.id.edit_group_name)
                     val newGroupName = editText?.text?.toString() ?: ""
                     if (newGroupName.isNotEmpty()) {
                         groups.add(newGroupName)
-                        // Crear y añadir nuevo RadioButton
-                        val radioButton = RadioButton(this).apply {
+                        val radioButton = RadioButton(this@SelectGroupActivity).apply {
                             text = newGroupName
                             layoutParams = RadioGroup.LayoutParams(
                                 RadioGroup.LayoutParams.MATCH_PARENT,
@@ -56,10 +60,16 @@ class SelectGroupActivity : AppCompatActivity() {
                         binding.groupRadioGroup.addView(radioButton)
                         radioButton.isChecked = true
                         returnResult(newGroupName)
+                        dialog.dismiss()
                     }
                 }
-                .setNegativeButton("Cancel", null)
-                .show()
+            }
+
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).apply {
+                setTextColor(resources.getColor(R.color.primary, theme))
+            }
+
+            dialog.window?.setBackgroundDrawableResource(R.color.white)
         }
     }
 
