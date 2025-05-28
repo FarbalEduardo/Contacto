@@ -29,7 +29,8 @@
             android:text="Select group"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:layout_marginStart="32dp"/>
+            android:layout_marginStart="32dp"
+            android:textStyle="bold"/>
     </com.google.android.material.appbar.MaterialToolbar>
 
     <RadioGroup
@@ -39,20 +40,6 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <RadioButton
-            android:id="@+id/radio_not_assigned"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Not assigned"
-            android:checked="true"
-            android:padding="16dp"/>
-
-        <RadioButton
-            android:id="@+id/radio_emergency"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Emergency contacts"
-            android:padding="16dp"/>
 
         <TextView
             android:id="@+id/create_group"

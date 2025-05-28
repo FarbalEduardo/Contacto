@@ -14,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import androidx.core.view.isVisible
 
 class CreateContacts : AppCompatActivity() {
     private lateinit var mBinding: ActCreateContactsBinding
@@ -79,7 +80,7 @@ class CreateContacts : AppCompatActivity() {
         }
 
         mBinding.btnExpandWorkInfo.setOnClickListener {
-            val isExpanded = mBinding.containerWorkInfo.visibility == View.VISIBLE
+            val isExpanded = mBinding.containerWorkInfo.isVisible
             mBinding.containerWorkInfo.visibility = if (isExpanded) View.GONE else View.VISIBLE
             mBinding.btnExpandWorkInfo.setCompoundDrawablesWithIntrinsicBounds(
                 0, 0, 0, if (isExpanded) R.drawable.ic_arrow_down else R.drawable.ic_arrow_up
@@ -94,6 +95,7 @@ class CreateContacts : AppCompatActivity() {
         val phone = mBinding.editPhone.text.toString()
         val email = mBinding.editEmail.text.toString()
       //  val nickname = mBinding.editNickname.text.toString()
+        val group = mBinding.editSelectGroup.text.toString()
         val workInfo = mBinding.editWorkInfo.text.toString()
         val workPhone = mBinding.editWorkPhone.text.toString()
         val workEmail = mBinding.editWorkEmail.text.toString()
@@ -114,7 +116,7 @@ class CreateContacts : AppCompatActivity() {
                         phone = phone,
                         photo = imageBytes,  // ByteArray de la imagen
                         email = email,
-                        contact_group = "No group",
+                        contact_group = group,
                         workInfo = workInfo,
                         workPhone = workPhone,
                         workEmail = workEmail
