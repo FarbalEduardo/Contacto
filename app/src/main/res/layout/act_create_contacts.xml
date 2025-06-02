@@ -139,7 +139,8 @@
                     android:background="?attr/selectableItemBackground"
                     android:padding="8dp"
                     app:drawableBottomCompat="@drawable/ic_arrow_down"
-                    app:drawableTint="@color/primary" />
+                    app:drawableTint="@color/primary"
+                    android:visibility="gone"/>
 
                 <!-- Contenedor expandible para información de trabajo -->
                 <LinearLayout
