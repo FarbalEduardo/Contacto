@@ -1,22 +1,18 @@
 package com.farbalapps.contactos.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.farbalapps.contactos.R
 import com.farbalapps.contactos.adapter.EventAdapter
 import com.farbalapps.contactos.databinding.FragCalendarBinding
 import com.farbalapps.contactos.model.EventEntity
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.textfield.TextInputEditText
 import java.util.Calendar
 
 class FragCalendar : Fragment() {
@@ -30,7 +26,6 @@ class FragCalendar : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        (activity as? AppCompatActivity)?.supportActionBar?.title = "Calendar"
         mBinding = FragCalendarBinding.inflate(inflater, container, false)
         return mBinding.root
     }
@@ -61,35 +56,9 @@ class FragCalendar : Fragment() {
         }
 
         fabAddEvent.setOnClickListener {
-            showCreateEventDialog()
+            val intent = Intent(requireContext(), CreateEvent::class.java)
+            startActivity(intent)
         }
-    }
-
-    private fun showCreateEventDialog() {
-        val dialog = MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Crear Evento")
-            .setView(R.layout.dialog_create_event)
-            .setPositiveButton("Crear") { dialog, _ ->
-                val dialogView = (dialog as AlertDialog).findViewById<View>(android.R.id.content)
-                val title = dialogView?.findViewById<TextInputEditText>(R.id.eventTitleInput)?.text?.toString() ?: ""
-                val description = dialogView?.findViewById<TextInputEditText>(R.id.eventDescriptionInput)?.text?.toString() ?: ""
-                val time = dialogView?.findViewById<TextInputEditText>(R.id.eventTimeInput)?.text?.toString() ?: ""
-
-                if (title.isNotEmpty()) {
-                    val event = EventEntity(
-                        title = title,
-                        description = description,
-                        date = selectedDate,
-                        time = time
-                    )
-                    events.add(event)
-                    updateEventsList()
-                }
-            }
-            .setNegativeButton("Cancelar", null)
-            .create()
-
-        dialog.show()
     }
 
     private fun updateEventsList() {
