@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.farbalapps.contactos.EventDatabase
+import com.farbalapps.contactos.R
 import com.farbalapps.contactos.databinding.ActCreateEventBinding
 import com.farbalapps.contactos.intarfaces.EventDao
 import com.farbalapps.contactos.model.EventEntity
@@ -19,6 +20,8 @@ class CreateEvent : AppCompatActivity() {
     private lateinit var eventDao: EventDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Aplicar el tema con la barra de estado roja
+        setTheme(R.style.Theme_Contactos)
         super.onCreate(savedInstanceState)
         mBinding = ActCreateEventBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
@@ -27,14 +30,14 @@ class CreateEvent : AppCompatActivity() {
     }
 
     private fun saveEvent() {
-        val event = EventEntity(
-            title = mBinding.titleEditText.text.toString(),
-            date = calendar.timeInMillis,
-            startTime = setupTimePickers().toString(),
-            endTime = setupTimePickers().toString(),
-            isAllDay = mBinding.allDaySwitch.isChecked,
-            description = mBinding.notesText.text.toString()
-        )
+//        val event = EventEntity(
+//            title = mBinding.titleEditText.text.toString(),
+//            date = calendar.timeInMillis,
+////            startTime = setupTimePickers().toString(),
+////            endTime = setupTimePickers().toString(),
+////            isAllDay = mBinding.allDaySwitch.isChecked,
+////            description = mBinding.notesText.text.toString()
+//        )
     }
     private fun setupTimePickers() {
         mBinding.startTimeText.setOnClickListener {

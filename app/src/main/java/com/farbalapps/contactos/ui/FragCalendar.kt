@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +27,7 @@ class FragCalendar : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
+        (activity as? AppCompatActivity)?.supportActionBar?.title = "Calendar"
         mBinding = FragCalendarBinding.inflate(inflater, container, false)
         return mBinding.root
     }
@@ -55,10 +57,10 @@ class FragCalendar : Fragment() {
             updateEventsList()
         }
 
-        fabAddEvent.setOnClickListener {
-            val intent = Intent(requireContext(), CreateEvent::class.java)
-            startActivity(intent)
-        }
+//        fabAddEvent.setOnClickListener {
+//            val intent = Intent(requireContext(), CreateEventActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 
     private fun updateEventsList() {

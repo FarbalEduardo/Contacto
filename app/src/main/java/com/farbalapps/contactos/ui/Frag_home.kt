@@ -15,6 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import android.app.Dialog
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -33,7 +34,9 @@ import java.io.ByteArrayInputStream
 class Frag_home : Fragment() {
     private lateinit var mBinding: FragHomeBinding
     private lateinit var mContactAdapter: ContactAdapter
-
+    companion object {
+        private const val EDIT_CONTACT_REQUEST = 2
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View {
         (activity as? AppCompatActivity)?.supportActionBar?.title = "Contact"
@@ -116,6 +119,15 @@ class Frag_home : Fragment() {
                 startActivity(intent)
                 dialog.dismiss()
             }
+            btnEdit.setOnClickListener {
+                val intent = Intent(requireContext(), CreateContacts::class.java).apply {
+                    putExtra(CreateContacts.EXTRA_CONTACT_ID, contact.id)
+                }
+
+                startActivityForResult(intent, EDIT_CONTACT_REQUEST)
+                dialog.dismiss()
+
+            }
 
             btnDelete.setOnClickListener {
                 deleteContact(contact)
@@ -190,6 +202,13 @@ class Frag_home : Fragment() {
             withContext(Dispatchers.Main) {
                 mContactAdapter.updateContacts(contacts)
             }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == EDIT_CONTACT_REQUEST && resultCode == Activity.RESULT_OK) {
+            loadContacts()
         }
     }
 }

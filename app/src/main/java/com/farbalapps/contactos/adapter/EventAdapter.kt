@@ -39,7 +39,7 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
         fun bind(event: EventEntity) {
             titleText.text = event.title
             descriptionText.text = event.description
-            timeText.text = event.time
+
         }
     }
 }

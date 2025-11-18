@@ -92,14 +92,23 @@
             app:fabSize="normal"
             app:tint="@color/primary_dark"
             app:backgroundTint="@color/white"/>
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:contentDescription="@string/message"
+            android:contentDescription="@string/edit"
             android:src="@drawable/ic_email"
+            app:fabSize="normal"
+            app:tint="@color/primary_dark"
+            app:backgroundTint="@color/white"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:contentDescription="@string/message"
+            android:src="@drawable/ic_edit"
             app:fabSize="normal"
             app:tint="@color/primary_dark"
             app:backgroundTint="@color/white"/>

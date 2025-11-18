@@ -19,10 +19,14 @@ import androidx.core.view.isVisible
 class CreateContacts : AppCompatActivity() {
     private lateinit var mBinding: ActCreateContactsBinding
     private var selectedImageUri: Uri? = null
+    private var isEditMode: Boolean = false
+    private var editingContactId: Long? = null
+    private var existingPhotoBytes: ByteArray? = null
 
     companion object {
         private const val PICK_IMAGE_REQUEST = 1
         private const val SELECT_GROUP_REQUEST = 2
+        const val EXTRA_CONTACT_ID = "extra_contact_id"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +39,46 @@ class CreateContacts : AppCompatActivity() {
         mBinding.editSelectGroup.setOnClickListener {
             val intent = Intent(this, SelectGroupActivity::class.java)
             startActivityForResult(intent, SELECT_GROUP_REQUEST)
+        }
+
+        // Si viene en modo edición, cargar datos del contacto
+        val contactId = intent.getLongExtra(EXTRA_CONTACT_ID, -1L)
+        if (contactId > 0L) {
+            isEditMode = true
+            editingContactId = contactId
+            lifecycleScope.launch(Dispatchers.IO) {
+                try {
+                    val contact = ContactApplication.database.contactDao().getContactById(contactId.toInt())
+                    withContext(Dispatchers.Main) {
+                        // Rellenar los campos
+                        mBinding.editName.setText(contact.name)
+                        mBinding.editPhone.setText(contact.phone)
+                        mBinding.editEmail.setText(contact.email)
+                        mBinding.editSelectGroup.setText(contact.contact_group)
+                        mBinding.editWorkInfo.setText(contact.workInfo)
+                        mBinding.editWorkPhone.setText(contact.workPhone)
+                        mBinding.editWorkEmail.setText(contact.workEmail)
+
+                        existingPhotoBytes = contact.photo
+                        contact.photo?.let { bytes ->
+                            try {
+                                mBinding.ciProfileImage.setImageBitmap(
+                                    android.graphics.BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                                )
+                            } catch (_: Exception) {
+                                // ignorar si falla render del bitmap
+                            }
+                        }
+
+                        // Ajustar texto del botón guardar en modo edición
+                        mBinding.btnSaveContact.text = "Actualizar"
+                    }
+                } catch (_: Exception) {
+                    withContext(Dispatchers.Main) {
+                        Snackbar.make(mBinding.root, "No se pudo cargar el contacto", Snackbar.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
     }
 
@@ -104,13 +148,11 @@ class CreateContacts : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.IO) {
                 try {
                     val imageBytes = selectedImageUri?.let { uri ->
-                        contentResolver.openInputStream(uri)?.use {
-                            it.readBytes()
-                        }
-                    }
+                        contentResolver.openInputStream(uri)?.use { it.readBytes() }
+                    } ?: existingPhotoBytes
 
                     val contact = ContactEntity(
-                        id = 0L,  // Cambiado a 0L para Long
+                        id = if (isEditMode) (editingContactId ?: 0L) else 0L,
                         name = name,
                       //  nickname = nickname,
                         phone = phone,
@@ -122,7 +164,11 @@ class CreateContacts : AppCompatActivity() {
                         workEmail = workEmail
                     )
 
-                    ContactApplication.database.contactDao().insertContact(contact)
+                    if (isEditMode) {
+                        ContactApplication.database.contactDao().updateContact(contact)
+                    } else {
+                        ContactApplication.database.contactDao().insertContact(contact)
+                    }
                     withContext(Dispatchers.Main) {
                         setResult(RESULT_OK)
                         finish()

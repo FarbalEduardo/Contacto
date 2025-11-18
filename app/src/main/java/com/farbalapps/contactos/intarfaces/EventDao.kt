@@ -8,8 +8,8 @@ import androidx.room.Update
 import com.farbalapps.contactos.model.EventEntity
 @Dao
 interface EventDao {
-    @Query("SELECT * FROM events WHERE date >= :startDate AND date < :endDate")
-    suspend fun getEventsForDay(startDate: Long, endDate: Long): List<EventEntity>
+   // @Query("SELECT * FROM events WHERE date >= :startDate AND date < :endDate")
+   // suspend fun getEventsForDay(startDate: Long, endDate: Long): List<EventEntity>
 
     @Insert
     suspend fun insertEvent(event: EventEntity)
