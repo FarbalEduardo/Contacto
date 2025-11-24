@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="?attr/colorSurface">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
                     android:id="@+id/ci_profile_image"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:layout_above="@+id/contact_name"
+                    android:layout_above="@+id/tv_emergencynumbre"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="144dp"
@@ -43,7 +43,7 @@
                     android:src="@drawable/ic_launcher_background" />
 
                 <TextView
-                    android:id="@+id/contact_name"
+                    android:id="@+id/tv_emergencynumbre"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                      android:layout_alignParentStart="true"
@@ -54,7 +54,7 @@
                     android:layout_marginEnd="30dp"
                     android:layout_marginBottom="17dp"
                     android:text="Alesandro del Piero"
-                    android:textColor="@color/white"
+                    android:textColor="?attr/colorOnPrimary"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     android:gravity="center"/>
@@ -114,8 +114,8 @@
                         app:iconGravity="textStart"
                         app:iconPadding="0dp"
                         app:iconSize="24dp"
-                        app:iconTint="@color/primary"
-                        android:backgroundTint="@color/search_background"
+                        app:iconTint="?attr/colorPrimary"
+                        android:backgroundTint="?attr/colorSurface"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
 
                     <TextView
@@ -123,7 +123,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="Message"
-                        android:textColor="@color/text_primary"
+        android:textColor="?attr/colorOnSurface"
                         android:textSize="12sp" />
                 </LinearLayout>
 
@@ -147,8 +147,8 @@
                         app:iconGravity="textStart"
                         app:iconPadding="0dp"
                         app:iconSize="24dp"
-                        app:iconTint="@color/primary"
-                        android:backgroundTint="@color/search_background"
+        app:iconTint="?attr/colorPrimary"
+        android:backgroundTint="?attr/colorSurface"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
 
                     <TextView
@@ -156,7 +156,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="Call"
-                        android:textColor="@color/text_primary"
+        android:textColor="?attr/colorOnSurface"
                         android:textSize="12sp" />
                 </LinearLayout>
 
@@ -180,8 +180,8 @@
                         app:iconGravity="textStart"
                         app:iconPadding="0dp"
                         app:iconSize="24dp"
-                        app:iconTint="@color/primary"
-                        android:backgroundTint="@color/search_background"
+        app:iconTint="?attr/colorPrimary"
+        android:backgroundTint="?attr/colorSurface"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
 
                     <TextView
@@ -189,7 +189,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="Video"
-                        android:textColor="@color/text_primary"
+        android:textColor="?attr/colorOnSurface"
                         android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -206,7 +206,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Información Personal"
-                    android:textColor="@color/primary"
+        android:textColor="?attr/colorPrimary"
                     android:textStyle="bold"
                     android:textSize="18sp"
                     android:layout_marginBottom="16dp" />

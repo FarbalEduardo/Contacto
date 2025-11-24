@@ -7,28 +7,30 @@
     android:layout_height="match_parent"
     tools:context=".ui.SelectGroupActivity"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="?attr/colorSurface">
 
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/white">
+        android:background="?attr/colorSurface"
+        android:elevation="0dp"
+      >
 
         <ImageButton
             android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_back"
-            app:tint="@color/black"
+            app:tint="?attr/colorOnSurface"
             android:background="?attr/selectableItemBackgroundBorderless" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Select group"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="20sp"
             android:layout_marginStart="32dp"
             android:textStyle="bold"/>
@@ -47,9 +49,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Create group"
-            android:textColor="@color/primary"
+            android:textColor="?attr/colorPrimary"
             android:drawableStart="@drawable/ic_add"
-            android:drawableTint="@color/primary"
+            android:drawableTint="?attr/colorPrimary"
             android:padding="16dp"
             android:layout_marginTop="8dp"/>
     </RadioGroup>

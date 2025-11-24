@@ -3,8 +3,6 @@
 
     <color name="primary">#E53935</color>
     <color name="primary_dark">#C62828</color>
-    <color name="secondary">#F44336</color>
-    <color name="secondary_dark">#D32F2F</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="background">#F8F9FA</color>
@@ -13,7 +11,19 @@
     <color name="text_primary">#202124</color>
     <color name="text_secondary">#5F6368</color>
     <color name="divider">#DADCE0</color>
-    <color name="search_background">#F1F3F4</color>
+    <color name="search_background">#FFFFFF</color>
 
+    <color name="brand_primary">#E53935</color>
+
+    <color name="md_theme_light_primary">@color/brand_primary</color>
+    <color name="md_theme_light_onPrimary">#FFFFFF</color>
+
+    <color name="md_theme_light_background">#F8F9FA</color>
+    <color name="md_theme_light_onBackground">#202124</color>
+
+    <color name="md_theme_light_surface">#F8F9FA</color>
+    <color name="md_theme_light_onSurface">#202124</color>
+
+    <color name="md_theme_light_surfaceContainerHigh">#FFFFFF</color>
 
 </resources>

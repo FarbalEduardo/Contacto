@@ -41,6 +41,12 @@ class CreateContacts : AppCompatActivity() {
             startActivityForResult(intent, SELECT_GROUP_REQUEST)
         }
 
+        editContact()
+
+
+    }
+
+    private fun editContact(){
         // Si viene en modo edición, cargar datos del contacto
         val contactId = intent.getLongExtra(EXTRA_CONTACT_ID, -1L)
         if (contactId > 0L) {
@@ -81,7 +87,6 @@ class CreateContacts : AppCompatActivity() {
             }
         }
     }
-
     private fun setupImagePicker() {
         mBinding.ciProfileImage.setOnClickListener {
             openGallery()

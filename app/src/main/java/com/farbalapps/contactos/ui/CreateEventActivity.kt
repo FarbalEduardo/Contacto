@@ -14,7 +14,6 @@ class CreateEventActivity : AppCompatActivity() {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         // Aplicar el tema con la barra de estado roja
-        setTheme(R.style.Theme_ContactList)
         super.onCreate(savedInstanceState)
         binding = ActCreateEventBinding.inflate(layoutInflater)
         setContentView(binding.root)

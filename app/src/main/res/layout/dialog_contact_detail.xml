@@ -25,7 +25,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/background_image"
         app:layout_constraintVertical_bias="0.208"
-        app:tint="@color/white" />
+        app:tint="?attr/colorOnSurface" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ci_profile_image"
@@ -46,7 +46,7 @@
         android:layout_marginTop="16dp"
         android:textSize="28sp"
         android:textStyle="bold"
-        android:textColor="@color/white"
+        android:textColor="?attr/colorOnSurface"
         android:shadowColor="#000000"
         android:shadowDx="1"
         android:shadowDy="1"
@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textSize="20sp"
-        android:textColor="@color/white"
+        android:textColor="?attr/colorOnSurface"
         android:shadowColor="#000000"
         android:shadowDx="1"
         android:shadowDy="1"
@@ -90,8 +90,8 @@
             android:contentDescription="@string/call"
             android:src="@drawable/ic_call"
             app:fabSize="normal"
-            app:tint="@color/primary_dark"
-            app:backgroundTint="@color/white"/>
+            app:tint="?attr/colorOnSurface"
+            app:backgroundTint="?attr/colorSurface"/>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_message"
             android:layout_width="wrap_content"
@@ -100,8 +100,8 @@
             android:contentDescription="@string/edit"
             android:src="@drawable/ic_email"
             app:fabSize="normal"
-            app:tint="@color/primary_dark"
-            app:backgroundTint="@color/white"/>
+            app:tint="?attr/colorOnSurface"
+            app:backgroundTint="?attr/colorSurface"/>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_edit"
             android:layout_width="wrap_content"
@@ -110,8 +110,8 @@
             android:contentDescription="@string/message"
             android:src="@drawable/ic_edit"
             app:fabSize="normal"
-            app:tint="@color/primary_dark"
-            app:backgroundTint="@color/white"/>
+            app:tint="?attr/colorOnSurface"
+            app:backgroundTint="?attr/colorSurface"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_delete"
@@ -121,8 +121,8 @@
             android:contentDescription="@string/delete"
             android:src="@drawable/ic_delete"
             app:fabSize="normal"
-            app:tint="@color/primary_dark"
-            app:backgroundTint="@color/white"/>
+            app:tint="?attr/colorOnSurface"
+            app:backgroundTint="?attr/colorSurface"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

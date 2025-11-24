@@ -15,7 +15,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import android.app.Dialog
-import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -120,10 +119,7 @@ class Frag_home : Fragment() {
                 dialog.dismiss()
             }
             btnEdit.setOnClickListener {
-                val intent = Intent(requireContext(), CreateContacts::class.java).apply {
-                    putExtra(CreateContacts.EXTRA_CONTACT_ID, contact.id)
-                }
-
+                val intent = Intent(requireContext(), CreateContacts::class.java)
                 startActivityForResult(intent, EDIT_CONTACT_REQUEST)
                 dialog.dismiss()
 
@@ -202,13 +198,6 @@ class Frag_home : Fragment() {
             withContext(Dispatchers.Main) {
                 mContactAdapter.updateContacts(contacts)
             }
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == EDIT_CONTACT_REQUEST && resultCode == Activity.RESULT_OK) {
-            loadContacts()
         }
     }
 }

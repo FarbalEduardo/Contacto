@@ -4,21 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="?attr/colorSurface">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        android:background="?attr/colorSurface"
+        android:elevation="0dp"
+        >
         <ImageButton
             android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_back"
-            app:tint="@color/black"
+            app:tint="?attr/colorOnSurface"
             android:background="?attr/selectableItemBackgroundBorderless" />
 
 
@@ -169,7 +169,7 @@
             android:layout_weight="1"
             android:text="Save"
             android:layout_marginStart="8dp"
-            android:backgroundTint="@color/primary"
+            android:backgroundTint="?attr/colorPrimary"
             />
 
     </LinearLayout>

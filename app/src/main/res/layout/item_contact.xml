@@ -9,13 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="12dp">
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="16dp">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/contact_avatar"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_gravity="center_vertical"
             android:scaleType="centerCrop"
             android:background="@color/search_background"
@@ -30,27 +30,23 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/contact_name"
-                style="@style/ContactName"
-                android:textColor="@color/black"
+                android:id="@+id/contactName"
+                android:textColor="?attr/colorOnSurface"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="normal"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 />
 
             <TextView
                 android:id="@+id/contact_phone"
-                style="@style/ContactPhone2"
+                android:textColor="?attr/colorOnSurface"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp" />
+                android:layout_marginTop="2dp"
+                android:textSize="14sp"/>
         </LinearLayout>
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="72dp"
-        android:background="@color/divider" />
+   />
 </LinearLayout>

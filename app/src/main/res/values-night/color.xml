@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+
+
+    <color name="brand_primary_dark_mode">#E53935</color>
+
+    <color name="md_theme_dark_primary">@color/brand_primary_dark_mode</color>
+    <color name="md_theme_dark_onPrimary">#FFFFFFFF</color>
+
+    <color name="md_theme_dark_background">#1C1B1F</color>
+    <color name="md_theme_dark_onBackground">#E6E1E5</color>
+
+    <color name="md_theme_dark_surface">#1C1B1F</color>
+    <color name="md_theme_dark_onSurface">#E6E1E5</color>
+    <color name="md_theme_dark_surfaceContainerHigh">#363438</color>
+    
+
+</resources>
