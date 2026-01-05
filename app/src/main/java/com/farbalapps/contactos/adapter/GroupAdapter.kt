@@ -9,6 +9,7 @@ import com.farbalapps.contactos.ContactAdapter
 import com.farbalapps.contactos.databinding.ItemGroupBinding
 import com.farbalapps.contactos.model.ContactEntity
 import com.farbalapps.contactos.R
+import kotlin.collections.listOf
 
 class GroupAdapter : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
     data class Group(
@@ -37,7 +38,7 @@ class GroupAdapter : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
     override fun getItemCount(): Int = groups.size
 
     inner class ViewHolder(private val binding: ItemGroupBinding) : RecyclerView.ViewHolder(binding.root) {
-        private val contactAdapter = ContactAdapter(listOf())
+        private val contactAdapter = ContactAdapter()
 
         init {
             binding.contactsRecyclerView.apply {
@@ -67,7 +68,7 @@ class GroupAdapter : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
             )
             binding.contactsRecyclerView.visibility =
                 if (group.isExpanded) View.VISIBLE else View.GONE
-            contactAdapter.updateContacts(group.contacts)
+            //contactAdapter.updateContacts(group.contacts)
         }
     }
 }

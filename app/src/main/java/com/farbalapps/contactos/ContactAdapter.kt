@@ -8,6 +8,8 @@ import android.media.ExifInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -18,9 +20,18 @@ import java.io.ByteArrayInputStream
 
 
 class ContactAdapter(
-    private var contacts: List<ContactEntity>,
     private val onContactClick: (ContactEntity) -> Unit = {}
-) : RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
+) : ListAdapter<ContactEntity, ContactAdapter.ViewHolder>(DIFF_CALLBACK) {
+
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ContactEntity>() {
+            override fun areItemsTheSame(oldItem: ContactEntity, newItem: ContactEntity): Boolean =
+                oldItem.id == newItem.id
+
+            override fun areContentsTheSame(oldItem: ContactEntity, newItem: ContactEntity): Boolean =
+                oldItem == newItem
+        }
+    }
 
     inner class ViewHolder(private val binding: ItemContactBinding) : 
         RecyclerView.ViewHolder(binding.root) {
@@ -30,37 +41,16 @@ class ContactAdapter(
             binding.contactPhone.text = contact.phone
             
             contact.photo?.let { photoBytes ->
-                try {
-                    val bitmap = BitmapFactory.decodeByteArray(photoBytes, 0, photoBytes.size)
-                    val exif = ExifInterface(ByteArrayInputStream(photoBytes))
-                    
-                    val orientation = exif.getAttributeInt(
-                        ExifInterface.TAG_ORIENTATION,
-                        ExifInterface.ORIENTATION_NORMAL
-                    )
-                    
-                    val matrix = Matrix()
-                    when (orientation) {
-                        ExifInterface.ORIENTATION_ROTATE_90 -> matrix.postRotate(90f)
-                        ExifInterface.ORIENTATION_ROTATE_180 -> matrix.postRotate(180f)
-                        ExifInterface.ORIENTATION_ROTATE_270 -> matrix.postRotate(270f)
-                    }
-                    
-                    val rotatedBitmap = if (matrix.isIdentity) {
-                        bitmap
-                    } else {
-                        Bitmap.createBitmap(
-                            bitmap, 0, 0,
-                            bitmap.width, bitmap.height,
-                            matrix, true
-                        )
-                    }
-                    
-                    binding.contactAvatar.setImageBitmap(rotatedBitmap)
-                } catch (e: Exception) {
-                    binding.contactAvatar.setImageResource(R.drawable.ic_person)
-                }
-            } ?: binding.contactAvatar.setImageResource(R.drawable.ic_person)
+                Glide.with(binding.contactAvatar)
+                    .load(photoBytes)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .apply(RequestOptions().centerCrop())
+                    .placeholder(R.drawable.ic_person)
+                    .error(R.drawable.ic_person)
+                    .into(binding.contactAvatar)
+            } ?: run {
+                binding.contactAvatar.setImageResource(R.drawable.ic_person)
+            }
             
             binding.root.setOnClickListener {
                 onContactClick(contact)
@@ -78,13 +68,8 @@ class ContactAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(contacts[position])
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int = contacts.size
-
-    fun updateContacts(newContacts: List<ContactEntity>) {
-        contacts = newContacts
-        notifyDataSetChanged()
-    }
+    override fun getItemId(position: Int): Long = getItem(position).id
 }

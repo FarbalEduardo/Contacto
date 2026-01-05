@@ -25,8 +25,7 @@
             android:id="@+id/search_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-        android:background="?attr/colorSurface"
-            android:padding="4dp"
+            android:background="?attr/colorSurface"
             app:iconifiedByDefault="false"
             app:queryBackground="@null"
             app:queryHint="Search name, number, etc"
@@ -34,6 +33,22 @@
             app:searchIcon="@drawable/ic_search" />
     </com.google.android.material.card.MaterialCardView>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:layout_marginEnd="331dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/primary"
+        android:contentDescription="Agregar evento"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/rv_contacts"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_add"
+        app:tint="@android:color/white" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_contacts"

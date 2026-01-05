@@ -1,5 +1,6 @@
 package com.farbalapps.contactos.ui
 
+import android.app.Activity.RESULT_OK
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,21 +22,36 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Matrix
 import android.media.ExifInterface
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.farbalapps.contactos.model.ContactEntity
 import com.farbalapps.contactos.databinding.DialogContactDetailBinding
 import com.google.android.material.snackbar.Snackbar
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.net.toUri
+import androidx.navigation.fragment.NavHostFragment
 import com.farbalapps.contactos.R
 import java.io.ByteArrayInputStream
 
 class Frag_home : Fragment() {
     private lateinit var mBinding: FragHomeBinding
     private lateinit var mContactAdapter: ContactAdapter
+    private var allContacts: List<ContactEntity> = emptyList()
+    private var searchJob: kotlinx.coroutines.Job? = null
+
+    private val createOrEditLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            loadContacts()
+        }
+    }
+
     companion object {
         private const val EDIT_CONTACT_REQUEST = 2
+        private const val CREATE_CONTACT_REQUEST = 1
     }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View {
         (activity as? AppCompatActivity)?.supportActionBar?.title = "Contact"
@@ -48,19 +64,32 @@ class Frag_home : Fragment() {
         setupRecyclerView()
         setupSearchView()
         loadContacts()
+        createContact()
     }
 
+
     private fun setupRecyclerView() {
-        mContactAdapter = ContactAdapter(emptyList()) { contact ->
+        mContactAdapter = ContactAdapter { contact ->
             showContactDialog(contact)
         }
+        mContactAdapter.setHasStableIds(true)
         mBinding.rvContacts.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = mContactAdapter
+            setHasFixedSize(true)
+            itemAnimator = null
+            setItemViewCacheSize(20)
+        }
+    }
+    private fun createContact(){
+        mBinding.fabAddContact.setOnClickListener {
+            val intent = Intent(requireContext(), CreateContacts::class.java)
+            createOrEditLauncher.launch(intent)
         }
     }
 
-    private fun showContactDialog(contact: ContactEntity) {
+
+     fun showContactDialog(contact: ContactEntity) {
         val dialog = Dialog(requireContext())
         val dialogBinding = DialogContactDetailBinding.inflate(layoutInflater)
         dialog.setContentView(dialogBinding.root)
@@ -120,7 +149,8 @@ class Frag_home : Fragment() {
             }
             btnEdit.setOnClickListener {
                 val intent = Intent(requireContext(), CreateContacts::class.java)
-                startActivityForResult(intent, EDIT_CONTACT_REQUEST)
+                intent.putExtra(CreateContacts.EXTRA_CONTACT_ID, contact.id)
+                createOrEditLauncher.launch(intent)
                 dialog.dismiss()
 
             }
@@ -169,34 +199,35 @@ class Frag_home : Fragment() {
             override fun onQueryTextSubmit(query: String?): Boolean = false
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                filterContacts(newText)
+                // Debounce para evitar consultas/filtros en cada tecla
+                searchJob?.cancel()
+                searchJob = lifecycleScope.launch {
+                    kotlinx.coroutines.delay(250)
+                    filterContacts(newText)
+                }
                 return true
             }
         })
     }
 
     private fun filterContacts(query: String?) {
-        lifecycleScope.launch(Dispatchers.IO) {
-            val contacts = ContactApplication.database.contactDao().getAllContacts()
-            val filteredContacts = if (query.isNullOrEmpty()) {
-                contacts
-            } else {
-                contacts.filter { contact ->
-                    contact.name.contains(query, true) ||
-                            contact.phone.contains(query, true)
-                }
-            }
-            withContext(Dispatchers.Main) {
-                mContactAdapter.updateContacts(filteredContacts)
+        val filteredContacts = if (query.isNullOrEmpty()) {
+            allContacts
+        } else {
+            allContacts.filter { contact ->
+                contact.name.contains(query, true) ||
+                        contact.phone.contains(query, true)
             }
         }
+        mContactAdapter.submitList(filteredContacts)
     }
 
     fun loadContacts() {
         lifecycleScope.launch(Dispatchers.IO) {
             val contacts = ContactApplication.database.contactDao().getAllContacts()
             withContext(Dispatchers.Main) {
-                mContactAdapter.updateContacts(contacts)
+                allContacts = contacts
+                mContactAdapter.submitList(allContacts)
             }
         }
     }
