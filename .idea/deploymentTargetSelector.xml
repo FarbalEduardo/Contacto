@@ -4,10 +4,10 @@
     <selectionStates>
       <SelectionState runConfigName="Contactos.app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-04-23T03:19:57.386854300Z">
+        <DropdownSelection timestamp="2026-01-05T01:36:02.422646500Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\LENOVO T470\.android\avd\Pixel_7.avd" />
+              <DeviceId pluginId="PhysicalDevice" identifier="serial=RFCNC0EEH6N" />
             </handle>
           </Target>
         </DropdownSelection>

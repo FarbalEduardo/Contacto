@@ -35,25 +35,32 @@
             android:layout_marginStart="32dp"
             android:textStyle="bold"/>
     </com.google.android.material.appbar.MaterialToolbar>
+    <TextView
+        android:id="@+id/create_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create group"
+        android:textColor="?attr/colorPrimary"
+        android:drawableStart="@drawable/ic_add"
+        android:drawableTint="?attr/colorPrimary"
+        android:padding="16dp"
+        android:layout_marginTop="8dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#EEEEEE"/>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
     <RadioGroup
         android:id="@+id/group_radio_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
-
-
-        <TextView
-            android:id="@+id/create_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Create group"
-            android:textColor="?attr/colorPrimary"
-            android:drawableStart="@drawable/ic_add"
-            android:drawableTint="?attr/colorPrimary"
-            android:padding="16dp"
-            android:layout_marginTop="8dp"/>
     </RadioGroup>
+    </ScrollView>
 </LinearLayout>
 

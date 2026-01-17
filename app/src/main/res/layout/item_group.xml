@@ -33,6 +33,15 @@
                 tools:text="Nombre del Grupo" />
 
             <ImageView
+                android:id="@+id/deleteGroupIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_delete"
+                android:contentDescription="Eliminar grupo"
+                app:tint="#757575" />
+
+            <ImageView
                 android:id="@+id/expandIcon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"

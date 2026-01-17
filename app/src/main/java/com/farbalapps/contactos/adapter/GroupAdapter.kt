@@ -11,11 +11,13 @@ import com.farbalapps.contactos.model.ContactEntity
 import com.farbalapps.contactos.R
 import kotlin.collections.listOf
 
-class GroupAdapter : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
+class GroupAdapter(
+    private val onDeleteGroup: (String) -> Unit
+) : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
     data class Group(
         val name: String,
         val contacts: List<ContactEntity>,
-        var isExpanded: Boolean = false
+        var isExpanded: Boolean = true
     )
 
     private var groups: List<Group> = listOf()
@@ -46,6 +48,13 @@ class GroupAdapter : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
                 adapter = contactAdapter
             }
 
+            binding.deleteGroupIcon.setOnClickListener {
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    val group = groups[adapterPosition]
+                    onDeleteGroup(group.name)
+                }
+            }
+
             binding.headerLayout.setOnClickListener {
                 val group = groups[adapterPosition]
                 groups = groups.mapIndexed { index, g ->
@@ -62,13 +71,18 @@ class GroupAdapter : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
 
         fun bind(group: Group) {
             binding.groupNameText.text = group.name
+
+            // OCULTAR botón de borrar si es un grupo fijo
+            val isFixedGroup = group.name == "No Emergency Contacts" || group.name == "No Assigned"
+            binding.deleteGroupIcon.visibility = if (isFixedGroup) View.GONE else View.VISIBLE
+
             binding.expandIcon.setImageResource(
                 if (group.isExpanded) R.drawable.ic_arrow_up
                 else R.drawable.ic_arrow_down
             )
             binding.contactsRecyclerView.visibility =
                 if (group.isExpanded) View.VISIBLE else View.GONE
-            //contactAdapter.updateContacts(group.contacts)
+            contactAdapter.submitList(group.contacts)
         }
     }
 }

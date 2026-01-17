@@ -144,12 +144,16 @@ class CreateContacts : AppCompatActivity() {
         val phone = mBinding.editPhone.text.toString()
         val email = mBinding.editEmail.text.toString()
       //  val nickname = mBinding.editNickname.text.toString()
-        val group = mBinding.editSelectGroup.text.toString()
+        var group = mBinding.editSelectGroup.text.toString()
+        // Si no se selecciona un grupo, asignar "Not assigned" por defecto
+        if (group.isEmpty()) {
+            group = "Not assigned"
+        }
         val workInfo = mBinding.editWorkInfo.text.toString()
         val workPhone = mBinding.editWorkPhone.text.toString()
         val workEmail = mBinding.editWorkEmail.text.toString()
 
-        if (validateFields(name, phone)) {
+        if (validateFields(name, phone,group)) {
             lifecycleScope.launch(Dispatchers.IO) {
                 try {
                     val imageBytes = selectedImageUri?.let { uri ->
@@ -175,7 +179,7 @@ class CreateContacts : AppCompatActivity() {
                         ContactApplication.database.contactDao().insertContact(contact)
                     }
                     withContext(Dispatchers.Main) {
-                        setResult(RESULT_OK)
+            setResult(RESULT_OK)
                         finish()
                     }
                 } catch (e: Exception) {
@@ -188,7 +192,7 @@ class CreateContacts : AppCompatActivity() {
     }
 
 
-    private fun validateFields(name: String, phone: String): Boolean {
+    private fun validateFields(name: String, phone: String, group: String): Boolean {
         if (name.isEmpty()) {
             mBinding.editName.error = "El nombre es requerido"
             return false
@@ -197,6 +201,7 @@ class CreateContacts : AppCompatActivity() {
             mBinding.editPhone.error = "El teléfono es requerido"
             return false
         }
+        // El grupo puede estar vacío, se asignará "Not assigned" automáticamente
         return true
     }
 }

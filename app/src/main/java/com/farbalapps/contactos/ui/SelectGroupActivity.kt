@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
@@ -16,130 +17,110 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import com.farbalapps.contactos.databinding.DialogCreateGroupBinding
 
 class SelectGroupActivity : AppCompatActivity() {
     private lateinit var binding: ActSelectGroupBinding
-    private val groups = mutableListOf("Not assigned", "Emergency contacts")
+    private var currentGroupFromContact: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActSelectGroupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Unificamos a "Not assigned" con N mayúscula
+        currentGroupFromContact = intent.getStringExtra("current_group") ?: "Not assigned"
+
         loadExistingGroups()
-        setupCreateGroup()
-        binding.btnBack.setOnClickListener {
-            finish()
-        }
+        setupButtons()
     }
 
+    // AGREGADO: Listener para el botón de crear grupo
+    private fun setupButtons() {
+        binding.btnBack.setOnClickListener { finish() }
 
-    private fun loadExistingGroups() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                val contacts = ContactApplication.database.contactDao().getAllContacts()
-                val existingGroups = contacts.map { it.contact_group }.distinct()
-                
-                withContext(Dispatchers.Main) {
-                    // Agregar grupos predeterminados
-                    groups.forEach { group ->
-                        addGroupRadioButton(group)
-                    }
-                    
-                    // Agregar grupos existentes que no están en los predeterminados
-                    existingGroups.forEach { group ->
-                        if (!groups.contains(group)) {
-                            addGroupRadioButton(group)
-                            groups.add(group)
-                        }
-                    }
-                    
-                    // Configurar el listener después de agregar todos los grupos
-                    binding.groupRadioGroup.setOnCheckedChangeListener { _, checkedId ->
-                        val radioButton = findViewById<RadioButton>(checkedId)
-                        val selectedGroup = radioButton.text.toString()
-                        returnResult(selectedGroup)
-                    }
-                }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    // Manejar el error si es necesario
-                    setupDefaultGroups()
-                }
+        binding.createGroup.setOnClickListener {
+            showCreateGroupDialog()
+        }
+
+        // AGREGADO: Listener para detectar selección en la lista
+        binding.groupRadioGroup.setOnCheckedChangeListener { group, checkedId ->
+            val selectedRb = group.findViewById<RadioButton>(checkedId)
+            // isPressed asegura que fue un toque real del usuario
+            if (selectedRb != null && selectedRb.isPressed) {
+                returnResult(selectedRb.text.toString())
             }
         }
     }
-    
-    private fun setupDefaultGroups() {
-        groups.forEach { group ->
-            addGroupRadioButton(group)
-        }
-        binding.groupRadioGroup.setOnCheckedChangeListener { _, checkedId ->
-            val radioButton = findViewById<RadioButton>(checkedId)
-            val selectedGroup = radioButton.text.toString()
-            returnResult(selectedGroup)
+
+    // AGREGADO: Cargar grupos existentes
+    private fun loadExistingGroups() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val contacts = ContactApplication.database.contactDao().getAllContacts()
+            val dynamicGroups = contacts.mapNotNull { it.contact_group }
+                .filter { it.isNotBlank() && it != "Not assigned" && it != "Emergency contacts" }
+                .distinct()
+
+            withContext(Dispatchers.Main) {
+                binding.groupRadioGroup.removeAllViews()
+                addRadioButtonToGroup("Not assigned")
+                addRadioButtonToGroup("Emergency contacts")
+                dynamicGroups.forEach { addRadioButtonToGroup(it) }
+            }
         }
     }
-    
-    private fun addGroupRadioButton(groupName: String) {
-        val radioButton = RadioButton(this@SelectGroupActivity).apply {
-            text = groupName
+
+    // AGREGADO: Agregar RadioButton a la lista de grupos
+    private fun addRadioButtonToGroup(name: String) {
+        val rb = RadioButton(this).apply {
+            id = View.generateViewId()
+            text = name
+            textSize = 16f
+            setPadding(24, 40, 24, 40)
             layoutParams = RadioGroup.LayoutParams(
                 RadioGroup.LayoutParams.MATCH_PARENT,
                 RadioGroup.LayoutParams.WRAP_CONTENT
             )
-            setPadding(32, 32, 32, 32)
+            // Comparación segura ignorando mayúsculas
+            if (name.equals(currentGroupFromContact, ignoreCase = true)) {
+                isChecked = true
+            }
         }
-        binding.groupRadioGroup.addView(radioButton)
+        binding.groupRadioGroup.addView(rb)
     }
 
-    private fun setupCreateGroup() {
-        binding.createGroup.setOnClickListener {
-            val dialog = MaterialAlertDialogBuilder(this)
-                .setTitle("Create new group")
-                .setView(R.layout.dialog_create_group)
-                .setPositiveButton("Create", null)
-                .setNegativeButton("Cancel", null)
-                .show()
+    // AGREGADO: Mostrar diálogo para crear nuevo grupo con binding
+    private fun showCreateGroupDialog() {
+        // 1. Inflar el binding del diálogo
+        val dialogBinding = DialogCreateGroupBinding.inflate(layoutInflater)
 
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).apply {
-                setTextColor(resources.getColor(R.color.primary, theme))
-                setOnClickListener {
-                    val editText = dialog.findViewById<EditText>(R.id.edit_group_name)
-                    val newGroupName = editText?.text?.toString() ?: ""
-                    if (newGroupName.isNotEmpty()) {
-                        groups.add(newGroupName)
-                        val radioButton = RadioButton(this@SelectGroupActivity).apply {
-                            text = newGroupName
-                            layoutParams = RadioGroup.LayoutParams(
-                                RadioGroup.LayoutParams.MATCH_PARENT,
-                                RadioGroup.LayoutParams.WRAP_CONTENT
-                            )
-                            setPadding(32, 32, 32, 32)
-                        }
-                        binding.groupRadioGroup.addView(radioButton)
-                        radioButton.isChecked = true
-                        returnResult(newGroupName)
-                        dialog.dismiss()
-                    }
-                }
+        // 2. Crear el diálogo usando el binding
+        val dialog = MaterialAlertDialogBuilder(this)
+            .setTitle("Create new group")
+            .setView(dialogBinding.root)
+            .setPositiveButton("Create", null)
+            .setNegativeButton("Cancel", null)
+            .create()
+
+        dialog.show()
+
+        // 3. Configurar el botón de acción
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+            val newGroupName = dialogBinding.editGroupName.text.toString().trim()
+
+            if (newGroupName.isNotEmpty()) {
+                returnResult(newGroupName)
+                dialog.dismiss()
+            } else {
+                dialogBinding.editGroupName.error = "Name cannot be empty"
             }
-
-            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).apply {
-                setTextColor(resources.getColor(R.color.primary, theme))
-            }
-
-            dialog.window?.setBackgroundDrawableResource(R.color.white)
         }
     }
 
-    private fun returnResult(selectedGroup: String) {
-        val intent = Intent().apply {
-            putExtra("selected_group", selectedGroup)
-        }
+    // AGREGADO: Devolver el nombre del grupo seleccionado
+    private fun returnResult(name: String) {
+        val intent = Intent().apply { putExtra("selected_group", name) }
         setResult(Activity.RESULT_OK, intent)
         finish()
     }
 }
-
-

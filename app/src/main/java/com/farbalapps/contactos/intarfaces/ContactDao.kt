@@ -31,4 +31,10 @@ interface ContactDao {
 
     @Query("DELETE FROM contacts")
     suspend fun deleteAllContacts()
+
+    @Query("UPDATE contacts SET contact_group = '' WHERE contact_group = :groupName")
+    suspend fun removeGroup(groupName: String)
+
+    @Query("UPDATE contacts SET contact_group = 'Not Assigned' WHERE contact_group = :groupName")
+    suspend fun moveContactsToNoAssigned(groupName: String)
 }
