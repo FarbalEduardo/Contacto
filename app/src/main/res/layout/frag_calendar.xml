@@ -1,54 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <androidx.core.widget.NestedScrollView
+    <TextView
+        android:id="@+id/tv_title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="68dp"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="24dp"
+        android:text="@string/calendar"
+        android:textAppearance="?attr/textAppearanceHeadlineLarge"
+        android:textColor="?attr/colorOnSurface"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/materialCardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardElevation="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        tools:layout_editor_absoluteX="16dp">
+
+        <CalendarView
+            android:id="@+id/calendarView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="?attr/colorSurface"
+            android:theme="@style/Theme.Material3.DayNight" />
 
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                app:cardElevation="2dp">
+    </com.google.android.material.card.MaterialCardView>
 
-                <CalendarView
-                    android:id="@+id/calendarView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-    android:background="?attr/colorSurface"
-                    android:theme="@style/Theme.Material3.DayNight" />
 
-            </com.google.android.material.card.MaterialCardView>
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/events_of_the_day"
-                android:textAppearance="?attr/textAppearanceTitleMedium"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/eventsRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:paddingBottom="88dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/events_of_the_day"
+            android:textAppearance="?attr/textAppearanceTitleMedium" />
 
-        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/eventsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:clipToPadding="false"
+            android:paddingBottom="88dp" />
 
-    </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddEvent"
@@ -59,6 +76,7 @@
         android:contentDescription="Agregar evento"
         app:srcCompat="@drawable/ic_add"
         app:tint="@android:color/white"
-        android:backgroundTint="@color/primary" />
+        android:backgroundTint="@color/brand_primary"
+        android:visibility="gone"/>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,7 +14,12 @@
 
         <!-- Neutralizamos el indicador activo del BottomNavigation -->
         <item name="colorSecondaryContainer">@color/md_theme_light_surface</item>
+        <item name="colorSurfaceContainerHigh">@color/md_theme_light_surfaceContainerHigh</item>
+
+
+
     </style>
 
 
 </resources>
+

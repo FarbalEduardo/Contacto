@@ -67,7 +67,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    app:boxStrokeColor="@color/primary">
+                    app:boxStrokeColor="@color/brand_primary">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_name"
                         android:layout_width="match_parent"
@@ -81,7 +81,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    app:boxStrokeColor="@color/primary">
+                    app:boxStrokeColor="@color/brand_primary">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_phone"
                         android:layout_width="match_parent"
@@ -96,7 +96,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    app:boxStrokeColor="@color/primary">
+                    app:boxStrokeColor="@color/brand_primary">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_email"
                         android:layout_width="match_parent"
@@ -113,7 +113,7 @@
                     android:layout_marginTop="16dp"
                     android:clickable="true"
                     android:focusable="true"
-                    app:boxStrokeColor="@color/primary">
+                    app:boxStrokeColor="@color/brand_primary">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_select_group"
                         android:layout_width="match_parent"
@@ -133,13 +133,13 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="8dp"
                     android:text="View more"
-                    android:textColor="@color/primary"
+                    android:textColor="@color/brand_primary"
                     android:textSize="14sp"
                     android:gravity="center_horizontal"
                     android:background="?attr/selectableItemBackground"
                     android:padding="8dp"
                     app:drawableBottomCompat="@drawable/ic_arrow_down"
-                    app:drawableTint="@color/primary"
+                    app:drawableTint="@color/brand_primary"
                     android:visibility="gone"/>
 
                 <!-- Contenedor expandible para información de trabajo -->
@@ -155,7 +155,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        app:boxStrokeColor="@color/primary">
+                        app:boxStrokeColor="@color/brand_primary">
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_work_info"
                             android:layout_width="match_parent"
@@ -168,7 +168,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        app:boxStrokeColor="@color/primary">
+                        app:boxStrokeColor="@color/brand_primary">
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_work_phone"
                             android:layout_width="match_parent"
@@ -182,7 +182,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        app:boxStrokeColor="@color/primary">
+                        app:boxStrokeColor="@color/brand_primary">
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_work_email"
                             android:layout_width="match_parent"
@@ -198,7 +198,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:layout_marginBottom="16dp"
-                    android:backgroundTint="@color/primary"
+                    android:backgroundTint="@color/brand_primary"
                     android:text="Save contact"
                     android:textColor="@color/white"
                     app:cornerRadius="8dp" />

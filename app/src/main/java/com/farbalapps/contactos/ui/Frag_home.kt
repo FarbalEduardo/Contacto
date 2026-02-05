@@ -29,10 +29,11 @@ import com.farbalapps.contactos.databinding.DialogContactDetailBinding
 import com.google.android.material.snackbar.Snackbar
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.net.toUri
+import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.NavHostFragment
 import com.farbalapps.contactos.R
 import java.io.ByteArrayInputStream
-
+import androidx.activity.OnBackPressedCallback
 class Frag_home : Fragment() {
     private lateinit var mBinding: FragHomeBinding
     private lateinit var mContactAdapter: ContactAdapter
@@ -65,6 +66,21 @@ class Frag_home : Fragment() {
         setupSearchView()
         loadContacts()
         createContact()
+
+        //Manejo del retroceso de la search view
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Si el SearchView está visible, lo ocultamos
+                if (mBinding.searchViewM3.isShowing) {
+                    mBinding.searchViewM3.hide()
+                } else {
+                    // Si no, dejamos que el sistema siga su curso (atrás normal)
+                    isEnabled = false
+                    requireActivity().onBackPressedDispatcher.onBackPressed()
+                    isEnabled = true
+                }
+            }
+        })
     }
 
 
@@ -79,6 +95,12 @@ class Frag_home : Fragment() {
             setHasFixedSize(true)
             itemAnimator = null
             setItemViewCacheSize(20)
+        }
+        mBinding.rvSearchResults.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = mContactAdapter
+            setHasFixedSize(true)
+            itemAnimator = null
         }
     }
     private fun createContact(){
@@ -101,31 +123,9 @@ class Frag_home : Fragment() {
             contact.photo?.let { photoBytes ->
                 try {
                     val bitmap = BitmapFactory.decodeByteArray(photoBytes, 0, photoBytes.size)
-                    val exif = ExifInterface(ByteArrayInputStream(photoBytes))
-                    
-                    val orientation = exif.getAttributeInt(
-                        ExifInterface.TAG_ORIENTATION,
-                        ExifInterface.ORIENTATION_NORMAL
-                    )
-                    
-                    val matrix = Matrix()
-                    when (orientation) {
-                        ExifInterface.ORIENTATION_ROTATE_90 -> matrix.postRotate(90f)
-                        ExifInterface.ORIENTATION_ROTATE_180 -> matrix.postRotate(180f)
-                        ExifInterface.ORIENTATION_ROTATE_270 -> matrix.postRotate(270f)
-                    }
-                    
-                    val rotatedBitmap = if (matrix.isIdentity) {
-                        bitmap
-                    } else {
-                        Bitmap.createBitmap(
-                            bitmap, 0, 0,
-                            bitmap.width, bitmap.height,
-                            matrix, true
-                        )
-                    }
-                    backgroundImage.setImageBitmap(rotatedBitmap)
-                    ciProfileImage.setImageBitmap(rotatedBitmap)
+
+                    backgroundImage.setImageBitmap(bitmap)
+                    ciProfileImage.setImageBitmap(bitmap)
                 } catch (e: Exception) {
                     ciProfileImage.setImageResource(R.drawable.ic_person)
                     backgroundImage.setImageResource(R.drawable.ic_person)
@@ -195,19 +195,44 @@ class Frag_home : Fragment() {
     }
 
     private fun setupSearchView() {
-        mBinding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean = false
+        with(mBinding) {
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                // Debounce para evitar consultas/filtros en cada tecla
+
+            // VINCULACIÓN: Esto hace que al tocar la SearchBar se abra la SearchView automáticamente
+            searchViewM3.setupWithSearchBar(searchBarM3)
+
+
+            // ACCESO AL TEXTO: Accedemos al editText interno del componente
+            searchViewM3.editText.addTextChangedListener { editable ->
+                val query = editable.toString()
+
+                // Reutilizamos tu lógica de Debounce (Job)
                 searchJob?.cancel()
                 searchJob = lifecycleScope.launch {
                     kotlinx.coroutines.delay(250)
-                    filterContacts(newText)
+                    filterContacts(query)
                 }
-                return true
             }
-        })
+
+            // OPCIONAL: Escuchar cuando el usuario cierra la búsqueda
+            searchViewM3.addTransitionListener { _, _, newState ->
+                when (newState) {
+                    com.google.android.material.search.SearchView.TransitionState.SHOWING -> {
+                        // Ocultamos el FAB y el BottomNav del Activity
+                        fabAddContact.hide()
+                        (activity as? MainActivity)?.setBottomNavigationVisibility(false)
+                    }
+                    com.google.android.material.search.SearchView.TransitionState.HIDDEN -> {
+                        // Mostramos el FAB y el BottomNav del Activity
+                        fabAddContact.show()
+                        (activity as? MainActivity)?.setBottomNavigationVisibility(true)
+                        filterContacts("")
+                    }
+                    else -> {}
+
+                }
+            }
+        }
     }
 
     private fun filterContacts(query: String?) {
@@ -219,6 +244,19 @@ class Frag_home : Fragment() {
                         contact.phone.contains(query, true)
             }
         }
+        with(mBinding) {
+            if (filteredContacts.isEmpty() && !query.isNullOrEmpty()) {
+                if (layoutEmptyState.visibility == View.GONE) {
+                    layoutEmptyState.alpha = 0f
+                    layoutEmptyState.visibility = View.VISIBLE
+                    layoutEmptyState.animate().alpha(1f).setDuration(300).start()
+                }
+                rvSearchResults.visibility = View.GONE
+            } else {
+                layoutEmptyState.visibility = View.GONE
+                rvSearchResults.visibility = View.VISIBLE
+            }
+        }
         mContactAdapter.submitList(filteredContacts)
     }
 
@@ -227,8 +265,25 @@ class Frag_home : Fragment() {
             val contacts = ContactApplication.database.contactDao().getAllContacts()
             withContext(Dispatchers.Main) {
                 allContacts = contacts
-                mContactAdapter.submitList(allContacts)
+                if (allContacts.isEmpty()) {
+                    mBinding.layoutInitialEmpty.visibility = View.VISIBLE
+                    mBinding.rvContacts.visibility = View.GONE
+                    mBinding.searchBarM3.visibility = View.GONE
+                } else {
+                    mBinding.layoutInitialEmpty.visibility = View.GONE
+                    mBinding.rvContacts.visibility = View.VISIBLE
+                    mBinding.searchBarM3.visibility = View.VISIBLE
+                    mContactAdapter.submitList(allContacts)
+                }
+
             }
         }
+
     }
+
+    override fun onResume() {
+        mBinding.fabAddContact.show()
+        super.onResume()
+    }
+
 }

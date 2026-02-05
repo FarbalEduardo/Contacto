@@ -11,6 +11,7 @@
         <item name="colorOnSurface">@color/md_theme_dark_onSurface</item>
 
         <!-- Neutralizamos el indicador activo del BottomNavigation (modo oscuro) -->
-        <item name="colorSecondaryContainer">@color/md_theme_dark_surface</item>
+        <item name="colorSecondaryContainer">@color/search_bar_background</item>
+        <item name="colorSurfaceContainerHigh">@color/md_theme_dark_surfaceContainerHigh</item>
     </style>
 </resources>

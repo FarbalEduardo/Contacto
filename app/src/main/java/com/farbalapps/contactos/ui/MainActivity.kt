@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -23,10 +24,23 @@ class MainActivity : AppCompatActivity() {
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(mBinding.root)
-        setSupportActionBar(mBinding.myToolbar)
+       // setSupportActionBar(mBinding.myToolbar)
         setupNavigationController()
+
+
     }
 
+    // En MainActivity.kt (Versión con animación)
+    fun setBottomNavigationVisibility(isVisible: Boolean) {
+        val bottomNav = mBinding.bottomNavigation // Si usas ViewBinding
+        if (isVisible) {
+
+                bottomNav.visibility = View.VISIBLE
+
+        } else {
+            bottomNav.visibility = View.GONE
+        }
+    }
     private fun setupNavigationController() {
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -47,4 +61,5 @@ class MainActivity : AppCompatActivity() {
         //menuInflater.inflate(R.menu.top_app_bar, menu)
         return true
     }
+
 }

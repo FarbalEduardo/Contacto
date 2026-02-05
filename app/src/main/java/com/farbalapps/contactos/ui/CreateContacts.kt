@@ -15,6 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import androidx.core.view.isVisible
+import androidx.core.graphics.scale
 
 class CreateContacts : AppCompatActivity() {
     private lateinit var mBinding: ActCreateContactsBinding
@@ -157,7 +158,7 @@ class CreateContacts : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.IO) {
                 try {
                     val imageBytes = selectedImageUri?.let { uri ->
-                        contentResolver.openInputStream(uri)?.use { it.readBytes() }
+                        processImage(uri)
                     } ?: existingPhotoBytes
 
                     val contact = ContactEntity(
@@ -190,8 +191,68 @@ class CreateContacts : AppCompatActivity() {
             }
         }
     }
+    private fun processImage(uri: Uri): ByteArray? {
+        return try {
+            // 1. Abrir el InputStream para leer la imagen
+            val inputStream = contentResolver.openInputStream(uri) ?: return null
+            val originalBitmap = android.graphics.BitmapFactory.decodeStream(inputStream)
+            inputStream.close()
 
+            if (originalBitmap == null) return null
 
+            // 2. LEER LA ROTACIÓN (EXIF)
+            // Necesitamos abrir un nuevo stream para no interferir con el anterior
+            val exifInputStream = contentResolver.openInputStream(uri)
+            val orientation = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                val exif = android.media.ExifInterface(exifInputStream!!)
+                exif.getAttributeInt(android.media.ExifInterface.TAG_ORIENTATION, android.media.ExifInterface.ORIENTATION_NORMAL)
+            } else {
+                // Para versiones antiguas si fuera necesario
+                android.media.ExifInterface.ORIENTATION_NORMAL
+            }
+            exifInputStream?.close()
+
+            // 3. CORREGIR LA ROTACIÓN
+            val matrix = android.graphics.Matrix()
+            when (orientation) {
+                android.media.ExifInterface.ORIENTATION_ROTATE_90 -> matrix.postRotate(90f)
+                android.media.ExifInterface.ORIENTATION_ROTATE_180 -> matrix.postRotate(180f)
+                android.media.ExifInterface.ORIENTATION_ROTATE_270 -> matrix.postRotate(270f)
+            }
+
+            // Crear el bitmap rotado
+            val rotatedBitmap = android.graphics.Bitmap.createBitmap(
+                originalBitmap, 0, 0, originalBitmap.width, originalBitmap.height, matrix, true
+            )
+
+            // 4. REDIMENSIONAR (Máximo 500px)
+            val maxSize = 500
+            val width = rotatedBitmap.width
+            val height = rotatedBitmap.height
+            val ratio = width.toFloat() / height.toFloat()
+
+            val finalWidth: Int
+            val finalHeight: Int
+            if (width > height) {
+                finalWidth = maxSize
+                finalHeight = (maxSize / ratio).toInt()
+            } else {
+                finalHeight = maxSize
+                finalWidth = (maxSize * ratio).toInt()
+            }
+
+            val scaledBitmap = android.graphics.Bitmap.createScaledBitmap(rotatedBitmap, finalWidth, finalHeight, true)
+
+            // 5. COMPRIMIR
+            val outputStream = java.io.ByteArrayOutputStream()
+            scaledBitmap.compress(android.graphics.Bitmap.CompressFormat.JPEG, 70, outputStream)
+
+            outputStream.toByteArray()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
     private fun validateFields(name: String, phone: String, group: String): Boolean {
         if (name.isEmpty()) {
             mBinding.editName.error = "El nombre es requerido"

@@ -4,30 +4,94 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.Frag_home"
-    android:padding="@dimen/common_padding_min">
+    tools:context=".ui.Frag_home">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="24dp"
+            android:text="@string/contacts"
+            android:textAppearance="?attr/textAppearanceHeadlineLarge"
+            android:textColor="?attr/colorOnSurface"
+            android:textStyle="bold" />
+
+        <com.google.android.material.search.SearchBar
+            android:id="@+id/search_bar_m3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="12dp"
+            android:hint="Search name, number, etc"
+            app:navigationIcon="@drawable/ic_search"
+            app:layout_scrollFlags="scroll|enterAlways"
+            />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_contacts"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="8dp"
-        app:layout_behavior="@string/searchbar_scrolling_view_behavior"
-        tools:listitem="@layout/item_contact"/>
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:nestedScrollingEnabled="true"/>
 
-
-
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search_view"
+    <com.google.android.material.search.SearchView
+        android:id="@+id/search_view_m3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="Search name, number, etc"
+        app:layout_anchor="@id/search_bar_m3">
+        <LinearLayout
+            android:id="@+id/layout_empty_state"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorSurface"
-            app:iconifiedByDefault="false"
-            app:queryBackground="@null"
-            app:queryHint="Search name, number, etc"
-            app:searchHintIcon="@null"
-            app:searchIcon="@drawable/ic_search" />
+            android:layout_marginTop="80dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <ImageView
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:alpha="0.2"
+                android:src="@drawable/ic_search"
+                app:tint="?attr/colorSecondary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Sin resultados"
+                android:textAppearance="?attr/textAppearanceHeadlineSmall"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.05" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Intenta con otro nombre o número"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:alpha="0.7" /> </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_search_results"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.google.android.material.search.SearchView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddContact"
@@ -35,18 +99,43 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:layout_marginEnd="331dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/primary"
-        android:contentDescription="Agregar evento"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/rv_contacts"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="@color/brand_primary"
         app:srcCompat="@drawable/ic_add"
         app:tint="@android:color/white" />
+    <LinearLayout
+        android:id="@+id/layout_initial_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="32dp"
+        android:visibility="gone"
+        tools:visibility="visible">
 
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:src="@drawable/ic_person_ad_black"
+            app:tint="@color/bottom_nav_colors"
+            android:alpha="0.9" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Aún no tienes contactos"
+            android:textAppearance="?attr/textAppearanceHeadlineSmall"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="Tus contactos aparecerán aquí. ¡Comienza agregando uno nuevo!"
+            android:textAppearance="?attr/textAppearanceBodyLarge"
+            android:textColor="?attr/colorOnSurfaceVariant" />
 
+    </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

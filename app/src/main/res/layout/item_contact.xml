@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingHorizontal="8dp"
-        android:paddingVertical="16dp">
+        android:paddingVertical="12dp">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/contact_avatar"
