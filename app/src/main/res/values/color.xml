@@ -16,6 +16,7 @@
 
     <color name="md_theme_light_primary">@color/brand_primary</color>
     <color name="md_theme_light_onPrimary">#FFFFFF</color>
+    <color name="nav_pill_background">#FFDAD6</color>
 
     <color name="md_theme_light_background">#F8F9FA</color>
     <color name="md_theme_light_onBackground">#202124</color>

@@ -118,7 +118,7 @@
                         android:id="@+id/edit_select_group"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableEnd="@drawable/ic_group"
+                        android:drawableEnd="@drawable/ic_groups_filled"
                         android:hint="Group"
                         android:focusable="false"
                         android:clickable="true"
